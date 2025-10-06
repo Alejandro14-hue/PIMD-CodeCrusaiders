@@ -41,3 +41,7 @@ AI Integration:
 👥 Developed by
 
 Students of 2º DAM (Multiplatform Application Development) and 2º DAW (Web Application Development) — IES Ribera del Tajo, as part of their AI course project.
+
+Actas de Conciliación y varios
+
+https://docs.google.com/document/d/1bBpsNPGa1qf3z5jqF7VlgnffzNveZo2EUUL07oe-dw0/edit?usp=sharing
