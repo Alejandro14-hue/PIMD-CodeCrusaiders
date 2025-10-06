@@ -23,7 +23,7 @@ A mobile and web chatbot application developed by **2nd-year DAM and DAW student
 
 ## 🛠️ Technologies
 - **Frontend:** Android (Java), Web (/Node.js)  
-- **Backend:** FastAPI (Python/Java), Node.js  
+- **Backend:** FastAPI (Python/Java)  
 - **Databases:** PostgreSQL, MongoDB  
 - **AI Integration:**
 
@@ -38,7 +38,7 @@ A mobile and web chatbot application developed by **2nd-year DAM and DAW student
 ├─ /backend            # FastAPI and Node.js backend
 ├─ /docs               # Documentation, diagrams, screenshots
 ├─ README.md           # Project description
-└─ .gitignore          # Android, Node.js, Python ignores
+└─ .gitignore          # Android, Python ignores
 ```
 
 ---
