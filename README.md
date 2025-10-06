@@ -8,8 +8,6 @@ AI-powered chatbot for hospital inquiries
 
 Cross-platform support: mobile (Android) and web
 
-User authentication with Firebase
-
 Supports relational (PostgreSQL) and non-relational (MongoDB) databases
 
 Fast and responsive APIs using FastAPI (Python/Java) and Node.js/JavaScript
@@ -18,15 +16,15 @@ Clean, user-friendly interface for easy interaction
 
 🛠️ Technologies
 
-Frontend: Android (Java/Kotlin), Web (JavaScript/Node.js)
+Frontend: Android (Java), Web (Node.js)
 
-Backend: FastAPI (Python/Java), Node.js
+Backend: FastAPI (Python)
 
 Databases: PostgreSQL (relational), MongoDB (non-relational)
 
-Authentication & Hosting: Firebase
+Authentication & Hosting: 
 
-AI Integration: Dialogflow / OpenAI API
+AI Integration: 
 
 📂 Project Structure
 /talavera-chatbot-app
@@ -38,7 +36,7 @@ AI Integration: Dialogflow / OpenAI API
 ├─ README.md           # Project description
 └─ .gitignore          # Android, Node.js, Python ignores
 
-Material Design for UI/UX
+
 
 👥 Developed by
 
