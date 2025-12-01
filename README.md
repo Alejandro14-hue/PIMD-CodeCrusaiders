@@ -31,14 +31,13 @@ A mobile and web chatbot application developed by **2nd-year DAM and DAW student
 
 ## 📂 Project Structure
 ```
-/talavera-chatbot-app
+/PIMD-CodeCrusaiders
 │
-├─ /android-app        # Android mobile source code
-├─ /web-app            # Web interface source code
-├─ /backend            # FastAPI and Node.js backend
+├─ /backend-node       # Node.js API (Legacy/Alternative)
+├─ /backend-fastapi    # FastAPI Backend
+├─ /frontend           # Web interface to consume APIs
 ├─ /docs               # Documentation, diagrams, screenshots
-├─ README.md           # Project description
-└─ .gitignore          # Android, Python ignores
+└─ README.md           # Project description
 ```
 
 ---
@@ -47,32 +46,43 @@ A mobile and web chatbot application developed by **2nd-year DAM and DAW student
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/yourusername/talavera-chatbot-app.git
-cd talavera-chatbot-app
+git clone https://github.com/Alejandro14-hue/PIMD-CodeCrusaiders.git
+cd PIMD-CodeCrusaiders
 ```
 
 2. **Backend Setup**
-- Install dependencies for FastAPI and Node.js
+
+### FastAPI (Python)
 ```bash
-cd backend
-pip install -r requirements.txt      # Python
-npm install                          # Node.js
+cd backend-fastapi
+# Create virtual environment (optional but recommended)
+python -m venv venv
+# Activate virtual environment
+# Windows:
+.\venv\Scripts\activate
+# Linux/Mac:
+source venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run the server
+uvicorn main:app --reload
 ```
-- Configure **PostgreSQL** and **MongoDB** connection strings in `.env`
+
+### Node.js
+```bash
+cd backend-node
+npm install
+node src/index.js
+```
 
 3. **Frontend Setup**
-- **Android:** Open `/android-app` in Android Studio  
-- **Web:** Install dependencies with `npm install`
-
-4. **Run the application**
 ```bash
-# FastAPI backend
-uvicorn main:app --reload
-
-# Node.js backend
-node server.js
-
-# Android: run from Android Studio
+cd frontend
+# Open index.html in your browser or serve it using a simple server
+# Example with python:
+python -m http.server 8000
 ```
 
 ---
