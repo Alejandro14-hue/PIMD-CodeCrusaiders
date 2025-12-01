@@ -1,0 +1,31 @@
+[
+  {
+    "id": 1,
+    "edad": "45 años",
+    "sexo": "Masculino",
+    "antecedentes_medicos": "Hipertensión arterial desde hace 5 años",
+    "antecedentes_quirurgicos": "Apendicectomía a los 20 años",
+    "habitos": "Fumador ocasional, no alcohol",
+    "situacion_basal": "Independiente, trabaja como oficinista",
+    "medicacion_actual": "Enalapril 10 mg cada 12 h",
+    "antecedentes_familiares": "Padre con infarto a los 60 años",
+    "motivo": "Dolor torácico de inicio reciente",
+    "sintomas": "Dolor opresivo retroesternal, sudoración, disnea leve",
+    "exploracion_general": "TA 150/95 mmHg, FC 92 lpm, SatO2 96%",
+    "signos": "No estertores, ruidos cardíacos normales",
+    "resultados_pruebas": "ECG con elevación del ST en DII, DIII, aVF; troponina elevada",
+    "razonamiento_clinico": "Dolor torácico típico con alteraciones ECG y enzimáticas",
+    "diagnostico_final": "Infarto agudo de miocardio inferior",
+    "tratamiento_farmacologico": "AAS, clopidogrel, atorvastatina, heparina",
+    "tratamiento_no_farmacologico": "Reposo, dieta baja en grasas, educación sanitaria",
+    "factores_sociales": "Estrés laboral, vida sedentaria",
+    "alergias": "Sin alergias conocidas",
+    "referencias_bibliograficas": "Guía ESC 2023 sobre síndrome coronario agudo",
+    "categoria": "Cardiología",
+    "keywords": "IAM, dolor torácico, ECG, infarto",
+    "codigo_cie_10": "I21.1",
+    "dificultad": "Media",
+    "chunk_id": "1",
+    "chunk": "Paciente de 45 años con dolor torácico. Diagnóstico de infarto agudo de miocardio. Tratado con AAS y estatinas. Evolución favorable."
+  }
+]
