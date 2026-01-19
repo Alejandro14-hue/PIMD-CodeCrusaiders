@@ -1,21 +1,45 @@
-const main = document.getElementById("main");
+const loginBtn = document.getElementById('login-btn');
+const logoutBtn = document.getElementById('logout-btn');
+const userInfo = document.getElementById('user-info');
+const userEmail = document.getElementById('user-email');
 
-function obtenerCadena() {
-  // Llamar a la API
-  fetch('https://pokeapi.co/api/v2/pokemon/ditto')
-    .then(response => response.json())
-    .then(data => {
-      // Crear elemento <p>, darle el valor del mensaje y agregarlo al <main>
-      const saludo = document.createElement("p");
-      saludo.textContent = data.name; // Aquí está el "Hola Mundo"
-      main.appendChild(saludo);
-      console.log(data);
-    })
-    .catch(error => {
-      console.error('Error al obtener datos:', error);
-    });
+async function checkAuth() {
+  try {
+    const response = await fetch('http://localhost:8000/auth/me'); // Adjust port if needed
+    if (response.ok) {
+      const user = await response.json();
+      if (user.error) {
+        showLogin();
+      } else {
+        showUser(user);
+      }
+    } else {
+      showLogin();
+    }
+  } catch (error) {
+    console.error("Auth check failed", error);
+    showLogin();
+  }
 }
 
-obtenerCadena();
+function showLogin() {
+  loginBtn.style.display = 'block';
+  userInfo.style.display = 'none';
+}
 
+function showUser(user) {
+  loginBtn.style.display = 'none';
+  userInfo.style.display = 'block';
+  userEmail.textContent = user.email || user.name || "User";
+}
 
+loginBtn.addEventListener('click', () => {
+  window.location.href = 'http://localhost:8000/auth/login';
+});
+
+logoutBtn.addEventListener('click', () => {
+  window.location.href = 'http://localhost:8000/auth/logout';
+});
+
+// Check auth on load
+checkAuth();

@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from app.routes.casos_routes import router as casos_router
 
@@ -18,22 +19,21 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+from starlette.middleware.sessions import SessionMiddleware
+from app.routes.auth import router as auth_router
+from app.core.config import SECRET_KEY
+
 # Incluir las rutas
 app.include_router(casos_router)
+app.include_router(auth_router, prefix="/auth", tags=["auth"])
+
+# Configurar SessionMiddleware
+app.add_middleware(SessionMiddleware, secret_key=SECRET_KEY)
 
 
-@app.get("/")
-async def root():
-    """
-    Endpoint raíz que devuelve información de la API.
-    """
-    return {
-        "ok": True,
-        "message": "Bienvenido a la API de Casos Médicos",
-        "version": "1.0.0",
-        "docs": "/docs",
-        "redoc": "/redoc"
-    }
+
+# Mount frontend
+app.mount("/", StaticFiles(directory="../frontend", html=True), name="frontend")
 
 
 @app.get("/health")
