@@ -36,7 +36,7 @@ async def auth_callback(request: Request):
         if user:
             request.session['user'] = user
             logger.info(f"User authenticated: {user.get('email')}")
-        return RedirectResponse(url='/')
+        return RedirectResponse(url='/pages/casos.html')
     except Exception as e:
         logger.error(f"Error in callback: {e}")
         return {"error": str(e)}
