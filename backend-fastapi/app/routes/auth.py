@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Request
 from authlib.integrations.starlette_client import OAuth
-from app.core.config import GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET
+from app.core.config import GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, OAUTH_REDIRECT_URI
 from starlette.responses import RedirectResponse
 
 router = APIRouter()
@@ -22,7 +22,11 @@ logger = logging.getLogger(__name__)
 
 @router.get('/login')
 async def login(request: Request):
-    redirect_uri = request.url_for('auth_callback')
+    if OAUTH_REDIRECT_URI:
+        redirect_uri = OAUTH_REDIRECT_URI
+    else:
+        redirect_uri = request.url_for('auth_callback')
+    
     logger.info(f"Logging in, redirect_uri: {redirect_uri}")
     return await oauth.google.authorize_redirect(request, redirect_uri)
 
