@@ -32,8 +32,13 @@ app.add_middleware(SessionMiddleware, secret_key=SECRET_KEY)
 
 
 
-# Mount frontend
-app.mount("/", StaticFiles(directory="../frontend", html=True), name="frontend")
+# Mount frontend (if directory exists, useful for local non-docker testing)
+import os
+frontend_dir = "../frontend"
+if os.path.exists(frontend_dir):
+    app.mount("/", StaticFiles(directory=frontend_dir, html=True), name="frontend")
+else:
+    print(f"Warning: Frontend directory '{frontend_dir}' not found. Skipping mount.")
 
 
 @app.get("/health")
