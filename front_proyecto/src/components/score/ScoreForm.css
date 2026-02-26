@@ -1,0 +1,49 @@
+.score-form {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid #2b3a4c;
+}
+
+.score-form__title {
+  margin: 0 0 0.75rem;
+}
+
+.score-form__fields {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  margin-bottom: 1rem;
+}
+
+.score-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.9rem;
+}
+
+.score-form__field span {
+  color: #c9d8e8;
+}
+
+.score-form__field select {
+  border: 1px solid #344557;
+  border-radius: 0.5rem;
+  background: #111c29;
+  color: #eef3f9;
+  padding: 0.5rem 0.6rem;
+}
+
+.score-form__submit {
+  border: 1px solid #5ea3ff;
+  border-radius: 0.55rem;
+  background: #2f78dc;
+  color: #f5faff;
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+}
+
+.score-form__submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

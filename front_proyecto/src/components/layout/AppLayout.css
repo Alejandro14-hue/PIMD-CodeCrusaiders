@@ -1,0 +1,38 @@
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+  color: #e8ecf1;
+}
+
+.app-layout__sidebar {
+  width: 20%;
+  min-width: 260px;
+  max-width: 360px;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  border-right: 1px solid #2a3340;
+  background: linear-gradient(180deg, #0d1521 0%, #0b1119 100%);
+}
+
+.app-layout__main {
+  width: 80%;
+  padding: 1.5rem;
+  background: radial-gradient(circle at top left, #1a2634 0%, #0f1620 45%, #0a1018 100%);
+  overflow: auto;
+}
+
+@media (max-width: 900px) {
+  .app-layout {
+    flex-direction: column;
+  }
+
+  .app-layout__sidebar,
+  .app-layout__main {
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    height: auto;
+    position: static;
+  }
+}
