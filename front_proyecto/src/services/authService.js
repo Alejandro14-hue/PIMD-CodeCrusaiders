@@ -7,8 +7,7 @@ export const authService = {
   login: () => {
     window.location.href = '/api/v1/auth/login';
   },
-  logout: async () => {
-    await fetch('/api/v1/auth/logout', { method: 'POST' });
-    window.location.href = '/';
+  logout: () => {
+    window.location.href = '/api/v1/auth/logout';
   }
 };

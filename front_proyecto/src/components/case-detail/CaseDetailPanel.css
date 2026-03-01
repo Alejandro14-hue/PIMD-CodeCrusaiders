@@ -1,17 +1,21 @@
+.case-detail-panel {
+  width: 100%;
+}
+
 .case-detail-panel__empty {
-  color: #c2d0e1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+  color: #64748b;
+  font-size: 1rem;
 }
 
-.case-detail-panel__header {
-  margin-bottom: 0.9rem;
-}
-
-.case-detail-panel__header h2 {
-  margin: 0;
-  font-size: 1.35rem;
-}
-
-.case-detail-panel__header p {
-  margin: 0.35rem 0 0;
-  color: #a7b2c1;
+.case-detail-panel__title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #f1f5f9;
+  margin: 0 0 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #334155;
 }

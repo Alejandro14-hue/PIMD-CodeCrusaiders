@@ -9,8 +9,10 @@ export const useCases = () => {
   useEffect(() => {
     const fetchCases = async () => {
       try {
-        const data = await caseService.getCases();
-        setCases(data);
+        const response = await caseService.getCases();
+        if (response.ok) {
+          setCases(response.data);
+        }
       } catch (error) {
         console.error("Error loading cases:", error);
       }
@@ -18,7 +20,7 @@ export const useCases = () => {
     fetchCases();
   }, []);
 
-  const selectedCase = cases.find(c => c.id === selectedCaseId);
+  const selectedCase = cases.find(c => String(c.id) === String(selectedCaseId));
 
-  return { cases, selectedCaseId, setSelectedCaseId, selectedCase, details };
+  return { cases, selectedCaseId, setSelectedCaseId, selectedCase };
 };

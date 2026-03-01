@@ -1,24 +1,45 @@
 .case-fields-list {
   border-top: 1px solid #253241;
+  width: 100%;
 }
 
 .case-fields-list__row {
-  padding: 0.9rem 0;
-  border-bottom: 1px solid #253241;
+  padding: 1rem 0;
+  border-bottom: 1px solid #1e2d3d;
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 1rem;
+  align-items: start;
 }
 
 .case-fields-list__label {
-  margin: 0 0 0.35rem;
+  margin: 0;
   font-size: 0.8rem;
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: #86a0b9;
+  color: #5ea3ff;
 }
 
 .case-fields-list__value {
   margin: 0;
-  line-height: 1.45;
+  line-height: 1.6;
   color: #dbe7f5;
   white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Tablet: narrower label column */
+@media (max-width: 1024px) {
+  .case-fields-list__row {
+    grid-template-columns: 160px 1fr;
+  }
+}
+
+/* Mobile: stack label/value vertically */
+@media (max-width: 768px) {
+  .case-fields-list__row {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+  }
 }
