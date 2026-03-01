@@ -1,20 +1,11 @@
 .cases-sidebar {
-  padding: 1.25rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
+  padding: 1.5rem 1rem;
 }
 
 .cases-sidebar__title {
-  margin: 0;
-  font-size: 1.2rem;
-  font-weight: 700;
-}
-
-.cases-sidebar__hint {
-  margin: 0;
-  color: #95a6b8;
-  font-size: 0.9rem;
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+  color: #5ea3ff;
 }
 
 .cases-sidebar__list {
@@ -24,17 +15,18 @@
 }
 
 .cases-sidebar__item {
-  text-align: left;
-  border: 1px solid #31404f;
-  background: #111b28;
-  color: #dde6f0;
-  border-radius: 0.65rem;
-  padding: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
   cursor: pointer;
-  transition: border-color 0.2s ease, background-color 0.2s ease;
+  background: rgba(255, 255, 255, 0.05);
+  transition: all 0.2s;
+}
+
+.cases-sidebar__item:hover {
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .cases-sidebar__item.is-active {
-  border-color: #5ea3ff;
-  background: #19283a;
+  background: #2f78dc;
+  color: white;
 }

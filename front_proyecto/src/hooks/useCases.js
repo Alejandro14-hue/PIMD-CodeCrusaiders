@@ -1,36 +1,24 @@
-import { useEffect, useMemo, useState } from 'react'
-import { getCases } from '../services/caseService'
-import { EXCLUDED_CASE_FIELDS } from '../utils/formatters'
+import { useState, useEffect } from 'react';
+import { caseService } from '../services/caseService';
 
 export const useCases = () => {
-  const [cases, setCases] = useState([])
-  const [selectedCaseId, setSelectedCaseId] = useState('')
+  const [cases, setCases] = useState([]);
+  const [selectedCaseId, setSelectedCaseId] = useState(null);
+  const [details, setDetails] = useState(null);
 
   useEffect(() => {
     const fetchCases = async () => {
-      const data = await getCases()
-      setCases(data)
-      setSelectedCaseId(data[0]?.id ?? '')
-    }
+      try {
+        const data = await caseService.getCases();
+        setCases(data);
+      } catch (error) {
+        console.error("Error loading cases:", error);
+      }
+    };
+    fetchCases();
+  }, []);
 
-    fetchCases()
-  }, [])
+  const selectedCase = cases.find(c => c.id === selectedCaseId);
 
-  const selectedCase = useMemo(
-    () => cases.find((item) => item.id === selectedCaseId) ?? null,
-    [cases, selectedCaseId],
-  )
-
-  const details = useMemo(() => {
-    if (!selectedCase) return []
-    return Object.entries(selectedCase).filter(([key]) => !EXCLUDED_CASE_FIELDS.has(key))
-  }, [selectedCase])
-
-  return {
-    cases,
-    selectedCaseId,
-    setSelectedCaseId,
-    selectedCase,
-    details,
-  }
-}
+  return { cases, selectedCaseId, setSelectedCaseId, selectedCase, details };
+};

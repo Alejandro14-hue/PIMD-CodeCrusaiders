@@ -1,21 +1,14 @@
 export const authService = {
-  checkAuth: async () => {
-    try {
-      const response = await fetch('/auth/me');
-      if (response.ok) {
-        const user = await response.json();
-        return user.error ? null : user;
-      }
-      return null;
-    } catch (error) {
-      console.error('Auth check failed', error);
-      return null;
-    }
+  getUser: async () => {
+    const response = await fetch('/api/v1/auth/me');
+    if (!response.ok) throw new Error('Not authenticated');
+    return response.json();
   },
   login: () => {
-    window.location.href = '/auth/login';
+    window.location.href = '/api/v1/auth/login';
   },
-  logout: () => {
-    window.location.href = '/auth/logout';
-  },
+  logout: async () => {
+    await fetch('/api/v1/auth/logout', { method: 'POST' });
+    window.location.href = '/';
+  }
 };

@@ -1,36 +1,23 @@
-import { useMemo, useState } from 'react'
-import { submitCaseScore } from '../services/caseService'
+import { useState } from 'react';
+import { caseService } from '../services/caseService';
 
 export const useCaseScoring = ({ selectedCase, selectedCaseId }) => {
-  const [scoresByCase, setScoresByCase] = useState({})
-
-  const selectedScores = useMemo(
-    () => scoresByCase[selectedCaseId] ?? {},
-    [scoresByCase, selectedCaseId],
-  )
+  const [selectedScores, setSelectedScores] = useState({});
 
   const handleScoreChange = (field, value) => {
-    setScoresByCase((prev) => ({
-      ...prev,
-      [selectedCaseId]: {
-        ...prev[selectedCaseId],
-        [field]: value,
-      },
-    }))
-  }
+    setSelectedScores(prev => ({ ...prev, [field]: value }));
+  };
 
   const submitSelectedCaseScore = async () => {
-    if (!selectedCase) return
+    if (!selectedCaseId) return;
+    try {
+      await caseService.submitCaseScore(selectedCaseId, selectedScores);
+      alert("Puntuación enviada con éxito");
+      setSelectedScores({});
+    } catch (error) {
+      console.error("Error submitting score:", error);
+    }
+  };
 
-    await submitCaseScore({
-      caseId: selectedCase.id,
-      scores: selectedScores,
-    })
-  }
-
-  return {
-    selectedScores,
-    handleScoreChange,
-    submitSelectedCaseScore,
-  }
-}
+  return { selectedScores, handleScoreChange, submitSelectedCaseScore };
+};

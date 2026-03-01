@@ -1,21 +1,30 @@
 import { useState, useEffect } from 'react';
 import { authService } from '../services/authService';
 
-export function useAuth() {
+export const useAuth = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const initAuth = async () => {
-      const userData = await authService.checkAuth();
-      setUser(userData);
+  const checkAuth = async () => {
+    try {
+      const data = await authService.getUser();
+      setUser(data);
+    } catch (error) {
+      setUser(null);
+    } finally {
       setLoading(false);
-    };
-    initAuth();
+    }
+  };
+
+  useEffect(() => {
+    checkAuth();
   }, []);
 
   const login = () => authService.login();
-  const logout = () => authService.logout();
+  const logout = async () => {
+    await authService.logout();
+    setUser(null);
+  };
 
-  return { user, loading, login, logout };
-}
+  return { user, loading, login, logout, checkAuth };
+};
