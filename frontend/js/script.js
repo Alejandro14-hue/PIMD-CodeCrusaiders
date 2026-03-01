@@ -5,7 +5,7 @@ const userEmail = document.getElementById('user-email');
 
 async function checkAuth() {
   try {
-    const response = await fetch('http://localhost:8000/auth/me'); // Adjust port if needed
+    const response = await fetch('/auth/me');
     if (response.ok) {
       const user = await response.json();
       if (user.error) {
@@ -34,12 +34,11 @@ function showUser(user) {
 }
 
 loginBtn.addEventListener('click', () => {
-  window.location.href = 'http://localhost:8000/auth/login';
+  window.location.href = '/auth/login';
 });
 
 logoutBtn.addEventListener('click', () => {
-  window.location.href = 'http://localhost:8000/auth/logout';
+  window.location.href = '/auth/logout';
 });
 
-// Check auth on load
 checkAuth();
