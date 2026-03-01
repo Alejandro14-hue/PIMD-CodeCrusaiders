@@ -1,0 +1,26 @@
+services:
+  backend:
+    build: ./backend-fastapi
+    restart: always
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./backend-fastapi/.env
+    volumes:
+      - ./backend-fastapi:/app
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+
+  frontend:
+    build: ./front_proyecto
+    restart: always
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+
+  watchtower:
+    image: containrrr/watchtower
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --interval 30
