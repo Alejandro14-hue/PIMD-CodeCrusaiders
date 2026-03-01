@@ -3,7 +3,7 @@ services:
     build: ./backend-fastapi
     restart: always
     ports:
-      - "8000:8000"
+      - "8001:8000"
     env_file:
       - ./backend-fastapi/.env
     volumes:
@@ -11,12 +11,12 @@ services:
     command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 
   frontend:
-    build: ./frontend
+    build: ./front_proyecto
     restart: always
     ports:
-      - "8080:80"
+      - "8081:80"
     volumes:
-      - ./frontend:/usr/share/nginx/html
+      - ./front_proyecto/dist:/usr/share/nginx/html
       - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
     depends_on:
       - backend

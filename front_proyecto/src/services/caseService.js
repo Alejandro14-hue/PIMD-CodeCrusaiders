@@ -1,6 +1,6 @@
-import baseCase from '../../ejemplodatos.json'
+import baseCase from "../../ejemplodatos.json"
 
-const CASES_ENDPOINT = 'http://127.0.0.1:8000/v1/api/'
+const CASES_ENDPOINT = "/api/v1/api/"
 
 const createMockCases = () =>
   Array.from({ length: 5 }, (_, index) => ({
@@ -15,7 +15,7 @@ const normalizeCasesResponse = (payload) => {
   if (Array.isArray(payload?.results)) return payload.results
   if (Array.isArray(payload?.items)) return payload.items
   if (Array.isArray(payload?.cases)) return payload.cases
-  if (payload && typeof payload === 'object') return [payload]
+  if (payload && typeof payload === "object") return [payload]
   return []
 }
 
@@ -35,13 +35,12 @@ export const getCases = async () => {
       titulo: item.titulo ?? `Caso clinico ${index + 1}`,
     }))
   } catch (error) {
-    console.error('Fallo al cargar API, se usa mock local:', error)
+    console.error("Fallo al cargar API, se usa mock local:", error)
     return createMockCases()
   }
 }
 
 export const submitCaseScore = async ({ caseId, scores }) => {
-  // TODO: Sustituir por POST real cuando exista la API.
-  console.log('Payload pendiente de API:', { caseId, scores })
+  console.log("Payload pendiente de API:", { caseId, scores })
   return { ok: true }
 }
