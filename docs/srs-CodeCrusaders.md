@@ -1,7 +1,7 @@
 ## Especificación de Requisitos de Software (SRS)
 ### Para CodeCrusaders
 
-Versión 2.0  
+Versión 2.2  
 Preparado por Adrián Sánchez Elvira  
 Ies. Ribera del Tajo 
 06 / Nov / 2025
