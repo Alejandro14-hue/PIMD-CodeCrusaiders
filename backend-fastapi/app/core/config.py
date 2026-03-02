@@ -13,3 +13,6 @@ CORS_ORIGINS = os.getenv("CORS_ORIGINS", "*").split(",")
 
 # URL del Frontend para redirecciones
 FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:8080")
+
+# URL de MongoDB
+MONGODB_URL = os.getenv("MONGODB_URL")

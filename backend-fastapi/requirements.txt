@@ -6,3 +6,4 @@ authlib
 httpx
 itsdangerous
 python-dotenv
+motor
