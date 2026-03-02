@@ -16,9 +16,23 @@ services:
     depends_on:
       - backend
 
+  mongodb:
+    image: mongo:7
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: CodeCrusaders
+      MONGO_INITDB_ROOT_PASSWORD: CodeCrusaders2526
+    volumes:
+      - mongo_data:/data/db
+
   watchtower:
     image: containrrr/watchtower
     restart: always
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     command: --interval 30
+
+volumes:
+  mongo_data:
