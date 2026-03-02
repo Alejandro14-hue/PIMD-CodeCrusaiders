@@ -6,7 +6,3 @@ authlib
 httpx
 itsdangerous
 python-dotenv
-authlib
-httpx
-itsdangerous
-python-dotenv

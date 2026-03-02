@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Request
 from starlette.responses import RedirectResponse, JSONResponse
 from authlib.integrations.starlette_client import OAuth
-from app.core.config import GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, OAUTH_REDIRECT_URI
+from app.core.config import GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, OAUTH_REDIRECT_URI, FRONTEND_URL
 
 router = APIRouter()
 
@@ -40,7 +40,7 @@ async def auth_callback(request: Request):
         if user:
             request.session['user'] = user
             logger.info(f"User authenticated: {user.get('email')}")
-        return RedirectResponse(url='/')
+        return RedirectResponse(url=FRONTEND_URL)
     except Exception as e:
         logger.error(f"Error in callback: {e}")
         return {"error": str(e)}
@@ -48,7 +48,7 @@ async def auth_callback(request: Request):
 @router.get('/logout')
 async def logout(request: Request):
     request.session.pop('user', None)
-    return RedirectResponse(url='/')
+    return RedirectResponse(url=FRONTEND_URL)
 
 @router.get('/me')
 async def me(request: Request):
