@@ -27,7 +27,7 @@ app.add_middleware(
 )
 
 # Configurar SessionMiddleware
-app.add_middleware(SessionMiddleware, secret_key=SECRET_KEY)
+app.add_middleware(SessionMiddleware, secret_key=SECRET_KEY, https_only=True, same_site="none")
 
 # Incluir las rutas
 app.include_router(casos_router)
