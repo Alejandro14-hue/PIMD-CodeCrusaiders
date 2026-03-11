@@ -82,7 +82,8 @@
 
 .oauth-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 8px 25px rgba(102, 102, 102, 0.25);
+  color: whitesmoke;
 }
 
 .oauth-button:active {
