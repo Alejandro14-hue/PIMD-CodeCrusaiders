@@ -4,28 +4,30 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.11-blue)](https://www.python.org/)
 [![Node.js](https://img.shields.io/badge/Node.js-18.x-green)](https://nodejs.org/)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue)](https://www.postgresql.org/)
-[![MongoDB](https://img.shields.io/badge/MongoDB-6-green)](https://www.mongodb.com/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.110-009688)](https://fastapi.tiangolo.com/)
+[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3-38B2AC)](https://tailwindcss.com/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-4.4-green)](https://www.mongodb.com/)
 
 
-A mobile and web chatbot application developed by **2nd-year DAM and DAW students** at **IES Ribera del Tajo** for the **AI course**. The app helps **patients and visitors** of the **Hospital of Talavera de la Reina** with instant access to hospital information and assistance.
+A web chatbot and clinical case validator application developed by **2nd-year DAM and DAW students** at **IES Ribera del Tajo** with the help of **AI course** student's AI model. The app helps **doctors and staff** of the **Hospital of Talavera de la Reina** with instant access to a custom trained **AI Assistant**.
 
 ---
 
 ## 📱 Features
 - AI-powered chatbot for hospital inquiries  
-- Cross-platform: Android mobile app and web interface   
-- Relational (**PostgreSQL**) and non-relational (**MongoDB**) database support  
+- Cross-platform: Android mobile app and web interface
+- Clinical cases validation forms for doctors
+- Non-relational (**MongoDB**) database support  
 - FastAPI (Python/Java) and Node.js backend for responsive APIs  
 - Clean and intuitive interface for better user experience
 
 ---
 
 ## 🛠️ Technologies
-- **Frontend:** Android (Java), Web (/Node.js)  
-- **Backend:** FastAPI (Python/Java)  
-- **Databases:** PostgreSQL, MongoDB  
-- **AI Integration:**
+- **Frontend:** Web (Node.js & TailwindCSS)  
+- **Backend:** FastAPI (Python)  
+- **Database:** MongoDB  
+- **AI Integration:** Custom Model
 
 ---
 
@@ -33,10 +35,11 @@ A mobile and web chatbot application developed by **2nd-year DAM and DAW student
 ```
 /PIMD-CodeCrusaiders
 │
-├─ /backend-node       # Node.js API (Legacy/Alternative)
 ├─ /backend-fastapi    # FastAPI Backend
-├─ /frontend           # Web interface to consume APIs
+├─ /frontend_proyecto  # Web interface to consume APIs
 ├─ /docs               # Documentation, diagrams, screenshots
+├─ docker-compose      # Launcher file for the app's containers
+├─ .gitignore          # Declares ignored files for commits
 └─ README.md           # Project description
 ```
 
@@ -70,13 +73,6 @@ pip install -r requirements.txt
 uvicorn main:app --reload
 ```
 
-### Node.js
-```bash
-cd backend-node
-npm install
-node src/index.js
-```
-
 3. **Frontend Setup**
 ```bash
 cd frontend
@@ -87,9 +83,36 @@ python -m http.server 8000
 
 ---
 
+## Docker Instructions
+
+> It's important to have Docker Desktop intalled and running to use this lauch option
+
+1. **Docker Compose Up**
+```bash
+# This command constructs and compiles the app into the containers
+# specified by the docker-compose.yml file
+docker compose -f docker-compose.yml up -d
+```
+
+2. **Docker Compose Down**
+```bash
+# This command destructs and erases the app and data
+# associated to the containers of the app
+docker compose -f docker-compose.yml down -v
+```
+
+3. **Restart Containers**
+```bash
+# In case any of the containers becomes unable to operate
+# we suggest restarting the containers before deleting
+docker compose -f docker-compose.yml restart
+```
+
+---
+
 ## 👥 Contributors
 - 2nd-year DAM and DAW students, **IES Ribera del Tajo**  
-- AI course project supervisors
+- AI course students
 
 ---
 
@@ -101,7 +124,6 @@ MIT License
 ## 📊 Badges and Resources
 - [FastAPI Documentation](https://fastapi.tiangolo.com/)  
 - [Node.js Documentation](https://nodejs.org/en/docs/)  
-- [PostgreSQL Documentation](https://www.postgresql.org/docs/)  
 - [MongoDB Documentation](https://www.mongodb.com/docs/)
 
 Actas de Conciliación y varios
