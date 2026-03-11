@@ -23,8 +23,6 @@ function RatingForm({ caseId }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Sending ratings for case:', caseId, ratings);
-    alert('Calificación enviada (Simulado): ' + JSON.stringify(ratings, null, 2));
   };
 
   return (
