@@ -1,14 +1,8 @@
-from fastapi import APIRouter, HTTPException, Query, Request, Depends
+from fastapi import APIRouter, HTTPException, Query, Depends
 from typing import Optional, Any
 from app.services import casos_service
 from pydantic import BaseModel
-
-
-async def get_current_user(request: Request):
-    user = request.session.get("user")
-    if not user:
-        raise HTTPException(status_code=401, detail="No autorizado")
-    return user
+from app.dependencies import get_current_user
 
 
 router = APIRouter(
