@@ -12,7 +12,7 @@ services:
     build: ./front_proyecto
     restart: always
     ports:
-      - "80:80"
+      - "8080:80"
     depends_on:
       - backend
 

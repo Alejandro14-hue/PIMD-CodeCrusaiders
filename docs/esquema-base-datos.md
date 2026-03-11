@@ -1,6 +1,6 @@
 # Esquema de Base de Datos — CodeCrusaders
 
-Versión 1.0 — Marzo 2026
+Versión 1.1 — Marzo 2026
 
 ---
 
@@ -16,7 +16,7 @@ Versión 1.0 — Marzo 2026
 
 ### 2.1 Colección: `casos`
 
-Almacena los casos clínicos generados por IA y validados por profesionales.
+Almacena los casos clínicos generados por IA y validados por profesionales, así como las evaluaciones (notas) que los usuarios realizan sobre cada caso.
 
 **Ejemplo de documento:**
 
@@ -48,14 +48,25 @@ Almacena los casos clínicos generados por IA y validados por profesionales.
   "codigo_cie_10": "I21.1",
   "dificultad": "Media",
   "chunk_id": "1",
-  "chunk": "Paciente de 45 años con dolor torácico. Diagnóstico de infarto agudo de miocardio."
+  "chunk": "Paciente de 45 años con dolor torácico. Diagnóstico de infarto agudo de miocardio.",
+  "notas": [
+    {
+      "user_id": ObjectId("507f1f77bcf86cd799439011"),
+      "precision_diagnostica": 4,
+      "claridad_textual": 5,
+      "relevancia_clinica": 4,
+      "adecuacion_contextual": 5,
+      "nivel_tecnico_adecuado": 4,
+      "comentario": "Caso muy representativo, pero faltaría detallar los tiempos de actuación."
+    }
+  ]
 }
 ```
 
-**Esquema de campos:**
+**Esquema de campos principales:**
 
 | Campo | Tipo | Descripción | Indexado |
-|:------|:-----|:------------|:--------:|
+|---|---|---|---|
 | `_id` | ObjectId | Identificador único generado por MongoDB | Sí (automático) |
 | `edad` | String | Edad del paciente | No |
 | `sexo` | String | Sexo biológico del paciente | No |
@@ -67,9 +78,9 @@ Almacena los casos clínicos generados por IA y validados por profesionales.
 | `antecedentes_familiares` | String | Historial médico familiar relevante | No |
 | `motivo` | String | Motivo de consulta / queja principal | No |
 | `sintomas` | String | Síntomas que presenta el paciente | No |
-| `exploracion_general` | String | Resultados de la exploración física (constantes vitales, etc.) | No |
+| `exploracion_general` | String | Resultados de la exploración física | No |
 | `signos` | String | Signos clínicos observados | No |
-| `resultados_pruebas` | String | Resultados de pruebas complementarias (ECG, analítica, etc.) | No |
+| `resultados_pruebas` | String | Resultados de pruebas complementarias | No |
 | `razonamiento_clinico` | String | Explicación del razonamiento diagnóstico | No |
 | `diagnostico_final` | String | Diagnóstico definitivo | No |
 | `tratamiento_farmacologico` | String | Tratamiento con medicamentos | No |
@@ -83,6 +94,49 @@ Almacena los casos clínicos generados por IA y validados por profesionales.
 | `dificultad` | String | Nivel de dificultad: Baja, Media, Alta | No |
 | `chunk_id` | String | Identificador del fragmento de texto | No |
 | `chunk` | String | Resumen corto del caso en texto plano | No |
+| `notas` | Array | Evaluaciones del caso realizadas por los usuarios | No |
+
+**Estructura del subdocumento `notas`:**
+
+| Campo | Tipo | Descripción |
+|---|---|---|
+| `user_id` | ObjectId | Referencia al usuario (`_id` de la colección `usuarios`) que evalúa |
+| `precision_diagnostica` | Number | Puntuación del 1 al 5 |
+| `claridad_textual` | Number | Puntuación del 1 al 5 |
+| `relevancia_clinica` | Number | Puntuación del 1 al 5 |
+| `adecuacion_contextual` | Number | Puntuación del 1 al 5 |
+| `nivel_tecnico_adecuado` | Number | Puntuación del 1 al 5 |
+| `comentario` | String | Texto con la opinión cualitativa del usuario |
+
+---
+
+### 2.2 Colección: `usuarios`
+
+Almacena la información de los usuarios registrados, habitualmente sincronizada o autenticada a través de Google.
+
+**Ejemplo de documento:**
+
+```json
+{
+  "_id": ObjectId("507f1f77bcf86cd799439011"),
+  "google_id": "104839201948392019384",
+  "email": "doctor.ejemplo@gmail.com",
+  "name": "Dr. Juan Pérez",
+  "picture": "[https://lh3.googleusercontent.com/a-/AOh14Gj](https://lh3.googleusercontent.com/a-/AOh14Gj)...",
+  "created_at": ISODate("2026-03-11T12:00:00Z")
+}
+```
+
+**Esquema de campos:**
+
+| Campo | Tipo | Descripción | Indexado |
+|---|---|---|---|
+| `_id` | ObjectId | Identificador único generado por MongoDB | Sí (automático) |
+| `google_id` | String | ID único de la cuenta de Google del usuario | Sí (Único recomendado) |
+| `email` | String | Correo electrónico de contacto | Sí (Único recomendado) |
+| `name` | String | Nombre completo del usuario | No |
+| `picture` | String | URL de la foto de perfil | No |
+| `created_at` | Date | Fecha y hora de creación de la cuenta | No |
 
 ---
 
@@ -121,6 +175,11 @@ db.casos.find({
 })
 ```
 
+### 3.6 Obtener usuario por Email
+```javascript
+db.usuarios.findOne({ email: "doctor.ejemplo@gmail.com" })
+```
+
 ---
 
 ## 4. Conexión desde el Backend
@@ -134,6 +193,7 @@ from app.core.config import MONGODB_URL
 client = AsyncIOMotorClient(MONGODB_URL)
 db = client.codecrusaders
 casos_collection = db.casos
+usuarios_collection = db.usuarios
 ```
 
 La URL de conexión se configura mediante la variable de entorno `MONGODB_URL` en el archivo `.env`.
@@ -160,7 +220,7 @@ mongoimport --uri "mongodb://usuario:password@localhost:27017/codecrusaders" \
 Configuradas en `docker-compose.prod.yml`:
 
 | Variable | Descripción |
-|:---------|:------------|
+|---|---|
 | `MONGO_INITDB_ROOT_USERNAME` | Usuario administrador de MongoDB |
 | `MONGO_INITDB_ROOT_PASSWORD` | Contraseña del administrador |
 
