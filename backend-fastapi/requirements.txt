@@ -7,3 +7,6 @@ httpx
 itsdangerous
 python-dotenv
 motor
+pytest
+pytest-asyncio
+httpx
