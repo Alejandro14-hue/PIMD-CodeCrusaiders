@@ -3,9 +3,9 @@ from app.core.database import casos_collection
 from bson import ObjectId
 
 
-async def get_all_casos() -> List[Dict[str, Any]]:
+async def get_all_casos(limit: int = 10, offset: int = 0) -> List[Dict[str, Any]]:
     casos = []
-    async for caso in casos_collection.find():
+    async for caso in casos_collection.find().skip(offset).limit(limit):
         caso["_id"] = str(caso["_id"])
         casos.append(caso)
     return casos
@@ -17,7 +17,7 @@ async def get_caso_by_id(caso_id: str) -> Optional[Dict[str, Any]]:
         if caso:
             caso["_id"] = str(caso["_id"])
         return caso
-    except:
+    except Exception:
         return None
 
 
@@ -51,3 +51,14 @@ async def search_casos(keyword: str) -> List[Dict[str, Any]]:
         caso["_id"] = str(caso["_id"])
         casos.append(caso)
     return casos
+
+async def add_nota_to_caso(caso_id: str, nota: dict) -> bool:
+    try:
+        # Añade la nota al array 'notas' del caso
+        result = await casos_collection.update_one(
+            {"_id": ObjectId(caso_id)},
+            {"$push": {"notas": nota}}
+        )
+        return result.modified_count > 0
+    except Exception:
+        return False
