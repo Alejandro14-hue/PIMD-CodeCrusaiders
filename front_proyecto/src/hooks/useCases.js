@@ -20,7 +20,7 @@ export const useCases = () => {
     fetchCases();
   }, []);
 
-  const selectedCase = cases.find(c => String(c.id) === String(selectedCaseId));
+  const selectedCase = cases.find(c => String(c._id) === String(selectedCaseId));
 
   return { cases, selectedCaseId, setSelectedCaseId, selectedCase };
 };

@@ -31,6 +31,14 @@ async def get_casos_by_categoria(categoria: str) -> List[Dict[str, Any]]:
     return casos
 
 
+async def get_random_casos(n: int = 5) -> List[Dict[str, Any]]:
+    casos = []
+    async for caso in casos_collection.aggregate([{"$sample": {"size": n}}]):
+        caso["_id"] = str(caso["_id"])
+        casos.append(caso)
+    return casos
+
+
 async def search_casos(keyword: str) -> List[Dict[str, Any]]:
     casos = []
     async for caso in casos_collection.find({

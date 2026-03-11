@@ -22,6 +22,16 @@ async def get_all_casos():
     }
 
 
+@router.get("/random/")
+async def get_random_casos(n: int = Query(5, description="Número de casos aleatorios a devolver", ge=1, le=50)):
+    casos = await casos_service.get_random_casos(n)
+    return {
+        "ok": True,
+        "message": f"{len(casos)} casos aleatorios obtenidos correctamente",
+        "data": casos
+    }
+
+
 @router.get("/search/")
 async def search_casos(q: str = Query(..., description="Palabra clave para buscar")):
     casos = await casos_service.search_casos(q)

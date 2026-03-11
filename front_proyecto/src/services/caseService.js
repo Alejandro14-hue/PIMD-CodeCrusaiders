@@ -1,4 +1,4 @@
-const CASES_ENDPOINT = '/api/v1/api/';
+const CASES_ENDPOINT = '/api/v1/api/random/';
 
 export const caseService = {
   getCases: async () => {
