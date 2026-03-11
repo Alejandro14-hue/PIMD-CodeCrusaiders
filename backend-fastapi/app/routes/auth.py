@@ -46,10 +46,9 @@ async def auth_callback(request: Request):
             request.session["user"] = user
             logger.info(f"User authenticated: {user.get('email')}")
 
-            # Generar Bearer JWT Token que Frontend usará a partir de ahora en cabeceras
             from app.core.security import create_access_token
 
-            # Le asignaremos un rol default "admin" para fines demostrativos en esta iteración.
+            # ejemplo de token de acceso roles
             jwt_token = create_access_token(
                 data={"sub": user["sub"], "email": user["email"], "role": "admin"}
             )
