@@ -1,4 +1,14 @@
-export const EXCLUDED_CASE_FIELDS = new Set(['chunk_id', 'chunk'])
+export const EXCLUDED_CASE_FIELDS = new Set([
+  'chunk_id', 
+  'chunk', 
+  '_id', 
+  'id', 
+  'Precisión diagnóstica', 
+  'Claridad textual', 
+  'Relevancia clínica', 
+  'Adecuación contextual', 
+  'Nivel técnico adecuado'
+])
 
 export const formatLabel = (key) =>
   key

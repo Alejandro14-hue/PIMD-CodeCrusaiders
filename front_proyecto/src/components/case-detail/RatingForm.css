@@ -1,0 +1,68 @@
+.rating-form {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.rating-form__title {
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+  color: #fff;
+  font-weight: 600;
+}
+
+.rating-form__container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.rating-form__field {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.rating-form__label {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.rating-form__select {
+  padding: 0.5rem 1rem;
+  background: #1a1a1a;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  cursor: pointer;
+  min-width: 80px;
+  transition: border-color 0.2s;
+}
+
+.rating-form__select:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.rating-form__button {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.rating-form__button:hover {
+  background: #0056b3;
+}
+
+.rating-form__button:active {
+  transform: scale(0.98);
+}

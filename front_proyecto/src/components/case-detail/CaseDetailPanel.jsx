@@ -1,4 +1,5 @@
 import CaseFieldsList from './CaseFieldsList'
+import RatingForm from './RatingForm'
 import './CaseDetailPanel.css'
 
 function CaseDetailPanel({ selectedCase }) {
@@ -16,6 +17,7 @@ function CaseDetailPanel({ selectedCase }) {
         {selectedCase.motivo || selectedCase.diagnostico_final || 'Caso clínico'}
       </h2>
       <CaseFieldsList caso={selectedCase} />
+      <RatingForm caseId={selectedCase._id} />
     </div>
   )
 }
