@@ -10,11 +10,11 @@ function CasesSidebar({ cases, selectedCaseId, onSelectCase }) {
         <ul className="cases-sidebar__list">
           {cases.map((c) => (
             <li
-              key={c.id}
-              className={`cases-sidebar__item${selectedCaseId === c.id ? ' is-active' : ''}`}
-              onClick={() => onSelectCase(c.id)}
+              key={c._id}
+              className={`cases-sidebar__item${selectedCaseId === String(c._id) ? ' is-active' : ''}`}
+              onClick={() => onSelectCase(String(c._id))}
             >
-              {c.motivo || c.diagnostico_final || `Caso ${c.id}`}
+              {c.motivo || `Caso ${String(c._id)}`}
             </li>
           ))}
         </ul>

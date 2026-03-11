@@ -20,7 +20,34 @@ export const useCases = () => {
     fetchCases();
   }, []);
 
-  const selectedCase = cases.find(c => String(c._id) === String(selectedCaseId));
+  // cuando cambia el id seleccionado, traemos la información completa del caso
+  useEffect(() => {
+    if (!selectedCaseId) {
+      setDetails(null);
+      return;
+    }
+
+    const fetchDetails = async () => {
+      try {
+        const resp = await caseService.getCaseById(selectedCaseId);
+        if (resp.ok) {
+          setDetails(resp.data);
+        } else {
+          setDetails(null);
+        }
+      } catch (err) {
+        console.error("Error loading case details:", err);
+        setDetails(null);
+      }
+    };
+
+    fetchDetails();
+  }, [selectedCaseId]);
+
+  // preferimos los detalles descargados, si existen, de lo contrario seleccionamos
+  // el caso de la lista ya obtenida (esto cubre los escenarios en que la API aleatoria
+  // ya contenía todo).
+  const selectedCase = details || cases.find(c => String(c._id) === String(selectedCaseId));
 
   return { cases, selectedCaseId, setSelectedCaseId, selectedCase };
 };
