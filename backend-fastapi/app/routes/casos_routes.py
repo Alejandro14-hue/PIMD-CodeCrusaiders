@@ -1,8 +1,11 @@
-from fastapi import APIRouter, HTTPException, Query, Depends
+﻿from fastapi import APIRouter, HTTPException, Query, Depends
 from typing import Optional, List, Generic, TypeVar
 from app.services import casos_service
 from pydantic import BaseModel, Field
 from app.dependencies import get_current_user
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 router = APIRouter(
