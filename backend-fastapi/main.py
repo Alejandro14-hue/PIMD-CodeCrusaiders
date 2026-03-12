@@ -1,14 +1,34 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.sessions import SessionMiddleware
+from starlette.responses import JSONResponse
 from app.routes.casos_routes import router as casos_router
 from app.routes.auth import router as auth_router
-from app.core.config import SECRET_KEY, CORS_ORIGINS
+from app.core.config import SECRET_KEY, CORS_ORIGINS, MONGODB_URL
 import logging
+import sys
 
 # Configurar logging básico
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+)
 logger = logging.getLogger(__name__)
+
+# Validar configuración crítica al arranque
+def validate_config():
+    missing = []
+    if not SECRET_KEY or SECRET_KEY == "unsafe-secret-key":
+        logger.warning("SECRET_KEY no está configurada o usa el valor por defecto inseguro.")
+    if not MONGODB_URL:
+        missing.append("MONGODB_URL")
+    
+    if missing:
+        logger.error(f"Faltan variables de entorno críticas: {', '.join(missing)}")
+        # En producción podrías querer detener el arranque:
+        # sys.exit(1)
+
+validate_config()
 
 # Crear la aplicación FastAPI
 app = FastAPI(
@@ -16,6 +36,15 @@ app = FastAPI(
     description="API para gestionar casos clínicos médicos",
     version="1.0.0"
 )
+
+# Exception Handler Global
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+    logger.error(f"Error no manejado en {request.url}: {exc}", exc_info=True)
+    return JSONResponse(
+        status_code=500,
+        content={"ok": False, "message": "Ha ocurrido un error interno inesperado en el servidor."},
+    )
 
 # Configurar CORS
 app.add_middleware(
@@ -45,6 +74,7 @@ async def health_check():
 
 if __name__ == "__main__":
     import uvicorn
+    logger.info("Arrancando servidor FastAPI...")
     uvicorn.run(
         "main:app",
         host="0.0.0.0",
