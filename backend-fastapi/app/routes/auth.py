@@ -45,6 +45,15 @@ async def auth_callback(request: Request):
         if user:
             request.session["user"] = user
             logger.info(f"User authenticated: {user.get('email')}")
+
+            from app.core.security import create_access_token
+
+            # ejemplo de token de acceso roles
+            jwt_token = create_access_token(
+                data={"sub": user["sub"], "email": user["email"], "role": "admin"}
+            )
+            return RedirectResponse(url=f"{FRONTEND_URL}?token={jwt_token}")
+
         return RedirectResponse(url=FRONTEND_URL)
     except Exception as e:
         logger.error(f"Error in callback: {e}")
