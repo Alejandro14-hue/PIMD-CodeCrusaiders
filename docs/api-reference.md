@@ -251,7 +251,7 @@ Verifica el estado de la API.
 
 ## 3. Estructura de un Caso Clínico
 
-Cada caso clínico almacenado en MongoDB tiene los siguientes campos:
+Cada caso clínico almacenado en MongoDB tienen los siguientes campos:
 
 | Campo | Tipo | Descripción |
 |:------|:-----|:------------|
