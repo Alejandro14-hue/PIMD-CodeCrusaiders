@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import AppLayout from './components/layout/AppLayout';
 import CasesSidebar from './components/sidebar/CasesSidebar';
 import CaseDetailPanel from './components/case-detail/CaseDetailPanel';
@@ -8,8 +8,18 @@ import { useAuth } from './hooks/useAuth';
 import './App.css';
 
 function App() {
-  const { user, loading, login, logout } = useAuth();
+  const { user, loading, login, logout, checkAuth } = useAuth();
   const { cases, selectedCaseId, setSelectedCaseId, selectedCase } = useCases();
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get('token');
+    if (token) {
+      localStorage.setItem('token', token);
+      window.history.replaceState({}, '', '/');
+      checkAuth();
+    }
+  }, []);
 
   if (loading) {
     return <div className='loading-screen'>Cargando...</div>;
