@@ -146,8 +146,8 @@ docker compose down
 
 | Curso | Integrantes |
 |:--- |:--- |
-| **2º DAM** | **Alvaro Rodrigo Cantalejo** *(Líder DAM)*<br>Adrián Sánchez Elvira<br>Alejandro Galán Martín<br>Omar Barrero Calderón |
-| **2º DAW** | **Diego Gonzalez Toledano** *(Líder DAW)*<br>Claudia Rodriguez<br>Hugo Rubio |
+| **2º DAM** | **Alvaro Rodrigo ** *(Líder DAM)*<br>Adrián Sánchez <br>Alejandro Galán <br>Omar Barrero |
+| **2º DAW** | **Diego González ** *(Líder DAW)*<br>Claudia Rodrguez<br>Hugo Rubio |
 
 </div>
 
