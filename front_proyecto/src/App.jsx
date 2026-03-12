@@ -9,7 +9,7 @@ import './App.css';
 
 function App() {
   const { user, loading, login, logout, checkAuth } = useAuth();
-  const { cases, selectedCaseId, setSelectedCaseId, selectedCase } = useCases();
+  const { cases, selectedCaseId, setSelectedCaseId, selectedCase } = useCases(!!user);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
