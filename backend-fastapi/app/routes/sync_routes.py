@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Request, HTTPException
-from app.database import casos_collection
+from app.core.database import casos_collection
 import pandas as pd
 import os
 import io
