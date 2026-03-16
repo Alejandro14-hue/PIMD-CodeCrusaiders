@@ -10,3 +10,5 @@ motor
 pytest
 pytest-asyncio
 httpx
+pandas
+pyarrow
