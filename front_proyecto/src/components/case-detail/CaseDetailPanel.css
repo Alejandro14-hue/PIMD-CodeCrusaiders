@@ -1,5 +1,7 @@
 .case-detail-panel {
   width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .case-detail-panel__empty {
@@ -18,4 +20,34 @@
   margin: 0 0 1.5rem;
   padding-bottom: 1rem;
   border-bottom: 1px solid #334155;
+}
+
+/* Layout de dos columnas: campos a la izquierda, formulario a la derecha */
+.case-detail-panel__body {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.case-detail-panel__fields {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.case-detail-panel__sidebar {
+  flex: 0 0 280px;
+  position: sticky;
+  top: 1rem;
+}
+
+/* En pantallas medianas el formulario baja debajo */
+@media (max-width: 1024px) {
+  .case-detail-panel__body {
+    flex-direction: column;
+  }
+  .case-detail-panel__sidebar {
+    flex: none;
+    width: 100%;
+    position: static;
+  }
 }

@@ -1,10 +1,25 @@
 .case-fields-list {
-  border-top: 1px solid #253241;
   width: 100%;
 }
 
+/* Sección con título emoji */
+.case-fields-list__section {
+  margin-bottom: 1.5rem;
+}
+
+.case-fields-list__section-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #94a3b8;
+  margin: 0 0 0.5rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #253241;
+}
+
 .case-fields-list__row {
-  padding: 1rem 0;
+  padding: 0.75rem 0;
   border-bottom: 1px solid #1e2d3d;
   display: grid;
   grid-template-columns: 200px 1fr;
@@ -29,14 +44,14 @@
   word-break: break-word;
 }
 
-/* Tablet: narrower label column */
+/* Tablet */
 @media (max-width: 1024px) {
   .case-fields-list__row {
     grid-template-columns: 160px 1fr;
   }
 }
 
-/* Mobile: stack label/value vertically */
+/* Mobile */
 @media (max-width: 768px) {
   .case-fields-list__row {
     grid-template-columns: 1fr;

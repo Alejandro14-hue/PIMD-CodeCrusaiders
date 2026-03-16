@@ -16,8 +16,14 @@ function CaseDetailPanel({ selectedCase }) {
       <h2 className="case-detail-panel__title">
         {selectedCase.motivo || selectedCase.diagnostico_final || 'Caso clínico'}
       </h2>
-      <CaseFieldsList caso={selectedCase} />
-      <RatingForm caseId={selectedCase._id} />
+      <div className="case-detail-panel__body">
+        <div className="case-detail-panel__fields">
+          <CaseFieldsList caso={selectedCase} />
+        </div>
+        <aside className="case-detail-panel__sidebar">
+          <RatingForm caseId={selectedCase._id} />
+        </aside>
+      </div>
     </div>
   )
 }
