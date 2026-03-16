@@ -1,6 +1,6 @@
 # Referencia de la API — CodeCrusaders
 
-Versión 1.0 — Marzo 2026
+Versión 1.2 — Marzo 2026
 
 ---
 
