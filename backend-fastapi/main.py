@@ -4,6 +4,7 @@ from starlette.middleware.sessions import SessionMiddleware
 from starlette.responses import JSONResponse
 from app.routes.casos_routes import router as casos_router
 from app.routes.auth import router as auth_router
+from app.routes.sync_routes import router as sync_router
 from app.core.config import SECRET_KEY, CORS_ORIGINS, MONGODB_URL
 import logging
 import sys
@@ -61,6 +62,7 @@ app.add_middleware(SessionMiddleware, secret_key=SECRET_KEY, https_only=True, sa
 # Incluir las rutas
 app.include_router(casos_router)
 app.include_router(auth_router, prefix="/auth", tags=["auth"])
+app.include_router(sync_router, prefix="/sync", tags=["sync"])
 
 @app.get("/health")
 async def health_check():
