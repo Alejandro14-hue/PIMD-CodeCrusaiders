@@ -160,6 +160,16 @@ docker compose down
 [![Docs](https://img.shields.io/badge/Docs-Proyecto-blue?style=for-the-badge)](./docs)
 [![Web](https://img.shields.io/badge/IES-Ribera%20del%20Tajo-green?style=for-the-badge)](https://iesriberadeltajo.es)
 
+📊 Badges and Resources
+
+    FastAPI Documentation
+    Node.js Documentation
+    PostgreSQL Documentation
+    MongoDB Documentation
+
+Actas de Conciliación y varios
+
+https://docs.google.com/document/d/1bBpsNPGa1qf3z5jqF7VlgnffzNveZo2EUUL07oe-dw0/edit?usp=sharing
 **Chatbot Talavera** - *Proyecto Educativo 2025-2026*
 
 </div>
