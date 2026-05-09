@@ -234,7 +234,7 @@ docker compose down
 | Recurso | Enlace |
 |---|---|
 | 📄 Actas de conciliación | [Google Docs](https://docs.google.com/document/d/1bBpsNPGa1qf3z5jqF7VlgnffzNveZo2EUUL07oe-dw0/edit?usp=sharing) |
-| 🏫 IES Ribera del Tajo | [iesriberadeltajo.es](https://iesriberadeltajo.es) |
+| 🏫 IES Ribera del Tajo | [iesriberadeltajo.es](https://riberadeltajo.es) |
 | 📚 Docs FastAPI | [fastapi.tiangolo.com](https://fastapi.tiangolo.com) |
 | 📚 Docs MongoDB | [mongodb.com/docs](https://mongodb.com/docs) |
 | 📚 Docs React | [react.dev](https://react.dev) |
