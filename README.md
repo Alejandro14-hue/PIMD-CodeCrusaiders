@@ -1,177 +1,253 @@
 <div align="center">
 
-# 🏥 App Chatbot Hospital de Talavera
+<br/>
 
-### Asistente Inteligente y Validador de Casos Clínicos
+<img src="https://img.shields.io/badge/🏥-Hospital%20de%20Talavera-red?style=flat-square" height="28"/>
 
-[![Estado](https://img.shields.io/badge/Estado-En%20Desarrollo-yellow?style=for-the-badge)](https://github.com/Alejandro14-hue/PIMD-CodeCrusaiders)
-[![Versión](https://img.shields.io/badge/Versión-1.0-blue?style=for-the-badge)](https://github.com/Alejandro14-hue/PIMD-CodeCrusaiders)
+# Chatbot Hospital de Talavera
 
-![React](https://img.shields.io/badge/React-19.0-61DAFB?style=for-the-badge&logo=react&logoColor=black)
-![Vite](https://img.shields.io/badge/Vite-7.0-646CFF?style=for-the-badge&logo=vite&logoColor=white)
-![FastAPI](https://img.shields.io/badge/FastAPI-0.110-009688?style=for-the-badge&logo=fastapi&logoColor=white)
-![Python](https://img.shields.io/badge/Python-3.11-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![MongoDB](https://img.shields.io/badge/MongoDB-4.4-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
-![Docker](https://img.shields.io/badge/Docker-3.0-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+**Asistente Inteligente y Validador de Casos Clínicos**
+
+*Proyecto educativo intermodular · IES Ribera del Tajo · Curso 2025–2026*
+
+<br/>
+
+![Estado](https://img.shields.io/badge/Estado-En%20Desarrollo-f59e0b?style=flat-square)
+![Versión](https://img.shields.io/badge/Versión-1.0.0-6366f1?style=flat-square)
+![Licencia](https://img.shields.io/badge/Licencia-Educativa-10b981?style=flat-square)
+
+<br/>
+
+[![React](https://img.shields.io/badge/React-19.0-61DAFB?style=flat-square&logo=react&logoColor=black)](https://react.dev)
+[![Vite](https://img.shields.io/badge/Vite-7.0-646CFF?style=flat-square&logo=vite&logoColor=white)](https://vite.dev)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.110-009688?style=flat-square&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
+[![Python](https://img.shields.io/badge/Python-3.11-3776AB?style=flat-square&logo=python&logoColor=white)](https://python.org)
+[![MongoDB](https://img.shields.io/badge/MongoDB-4.4-47A248?style=flat-square&logo=mongodb&logoColor=white)](https://mongodb.com)
+[![Docker](https://img.shields.io/badge/Docker-3.0-2496ED?style=flat-square&logo=docker&logoColor=white)](https://docker.com)
+
+<br/>
+
+[Documentación](#-documentación) · [Instalación](#-instalación-y-configuración) · [Arquitectura](#-arquitectura-del-sistema) · [Equipo](#-equipo)
+
+<br/>
 
 ---
 
 </div>
 
-## 🎯 ¿Qué es este Proyecto?
+## ¿Qué es este proyecto?
 
-Esta aplicación es una solución intermodular diseñada para modernizar la asistencia sanitaria en el **Hospital de Talavera de la Reina**. 
+El **Chatbot Hospital de Talavera** es una solución intermodular diseñada para modernizar la asistencia sanitaria en el Hospital de Talavera de la Reina. Permite a los profesionales médicos acceder a un **asistente de IA especializado**, visualizar registros y validar casos clínicos de forma dinámica.
 
-Permite a los profesionales médicos acceder a un **asistente de IA especializado**, visualizar registros y validar casos clínicos de forma dinámica, integrando el trabajo de estudiantes de **DAM, DAW y el curso de Especialización en IA**.
+El proyecto integra el trabajo colaborativo de estudiantes de **2º DAM**, **2º DAW** y el **Curso de Especialización en IA**, siendo un ejemplo real de desarrollo de software en entorno educativo multidisciplinar.
 
-### ✨ Características Principales
+<br/>
 
-- 🤖 **Chatbot IA Especializado**: Entrenado para responder consultas según protocolos locales.
-- 📋 **Gestión de Casos Clínicos**: Validar historiales y datos médicos de forma eficiente.
-- 🔐 **Arquitectura Segura**: Comunicación cifrada entre React y FastAPI.
-- 📱 **Diseño Responsivo**: Totalmente funcional en dispositivos móviles y escritorio.
+## Características principales
 
----
+| Funcionalidad | Descripción |
+|---|---|
+| 🤖 **Chatbot IA** | Asistente entrenado para responder según protocolos locales del hospital |
+| 📋 **Validador de casos** | Revisión y validación eficiente de historiales y datos médicos |
+| 🔐 **Arquitectura segura** | Comunicación cifrada entre frontend React y backend FastAPI |
+| 📱 **Diseño responsivo** | Interfaz optimizada para móvil, tablet y escritorio |
 
-## 🏗️ Arquitectura del Sistema
+<br/>
 
-Hemos implementado una arquitectura moderna desacoplada para garantizar velocidad y escalabilidad.
+## Arquitectura del sistema
+
+La aplicación sigue una arquitectura desacoplada de tres capas para garantizar velocidad, escalabilidad y mantenibilidad.
 
 ```mermaid
 graph TB
-    subgraph Capa_Presentacion["🖥️ CAPA DE PRESENTACIÓN"]
-        UI[React 19 + Tailwind CSS<br/>Desplegado con Vite]
+    subgraph Frontend["🖥️  Capa de Presentación"]
+        UI["React 19 + Tailwind CSS
+        Vite · SPA"]
     end
-    
-    subgraph Capa_Aplicacion["⚙️ CAPA DE APLICACIÓN"]
-        FastAPI[FastAPI Server<br/>Python 3.11]
-        Safety[Validación Pydantic]
-        Auth[Gestión de Sesiones]
+
+    subgraph Backend["⚙️  Capa de Aplicación"]
+        FastAPI["FastAPI · Python 3.11
+        Async · REST API"]
+        Pydantic["Validación Pydantic"]
+        Auth["Gestión de Sesiones"]
     end
-    
-    subgraph Capa_Datos["💾 CAPA DE DATOS"]
-        MDB[(MongoDB<br/>Casos Clínicos y Logs)]
+
+    subgraph Data["💾  Capa de Datos"]
+        MongoDB[("MongoDB
+        Casos clínicos · Logs")]
     end
-    
-    UI -->|HTTPS / REST API| FastAPI
-    FastAPI --> Safety
-    Safety --> Auth
-    Auth --> MDB
-    
-    style Capa_Presentacion fill:#61dafb,stroke:#333,stroke-width:3px,color:#000
-    style Capa_Aplicacion fill:#009688,stroke:#333,stroke-width:3px,color:#fff
-    style Capa_Datos fill:#47a248,stroke:#333,stroke-width:3px,color:#fff
+
+    UI -- "HTTPS / REST" --> FastAPI
+    FastAPI --> Pydantic --> Auth --> MongoDB
+
+    style Frontend  fill:#1e40af,stroke:#3b82f6,color:#fff
+    style Backend   fill:#065f46,stroke:#10b981,color:#fff
+    style Data      fill:#7c3aed,stroke:#a78bfa,color:#fff
 ```
 
----
+<br/>
 
-## 🎨 Flujo de la Aplicación
-
-### Interfaz (Frontend)
-
-El flujo de usuario está optimizado para la rapidez que requiere un entorno hospitalario:
+## Flujo de la aplicación
 
 ```mermaid
-graph LR
-    Login[🔑 Acceso] --> Dash[🏠 Dashboard]
-    Dash --> Chat[💬 Chatbot IA]
-    Dash --> Validar[📋 Validador Casos]
-    Dash --> Docs[📑 Documentación]
+flowchart LR
+    A["🔑 Login"] --> B["🏠 Dashboard"]
+    B --> C["💬 Chatbot IA"]
+    B --> D["📋 Validador de Casos"]
+    B --> E["📑 Documentación"]
 
-    style Login fill:#4A90E2,stroke:#333,stroke-width:2px,color:#fff
-    style Chat fill:#7ED321,stroke:#333,stroke-width:2px,color:#fff
+    style A fill:#4f46e5,stroke:#818cf8,color:#fff
+    style B fill:#0f766e,stroke:#2dd4bf,color:#fff
+    style C fill:#15803d,stroke:#4ade80,color:#fff
+    style D fill:#b45309,stroke:#fbbf24,color:#fff
+    style E fill:#9f1239,stroke:#fb7185,color:#fff
 ```
 
----
+<br/>
 
-## ⚡ Instalación y Configuración
+## Stack tecnológico
 
-### 1️⃣ Requisitos Previos
+### Frontend
+- **React 19** — Interfaz declarativa y reactiva con componentes modernos
+- **Vite 7** — Bundler de última generación con HMR ultrarrápido
+- **Tailwind CSS** — Sistema de estilos basado en utilidades
+
+### Backend
+- **FastAPI** — Servidor asíncrono de alto rendimiento (Python 3.11)
+- **Pydantic** — Validación de datos y seguridad de tipos
+- **Motor** — Cliente asíncrono para MongoDB
+
+### Datos e infraestructura
+- **MongoDB** — Base de datos documental flexible para datos médicos
+- **Docker + Docker Compose** — Contenedorización y orquestación del ecosistema
+
+<br/>
+
+## Instalación y configuración
+
+### Requisitos previos
+
+Asegúrate de tener instalado lo siguiente antes de comenzar:
+
 - **Python 3.11+**
 - **Node.js 18+**
 - **MongoDB** corriendo en local o vía Docker
 
-### 2️⃣ Backend (FastAPI)
+---
+
+### Opción A — Ejecución manual
+
+#### 1. Backend (FastAPI)
+
 ```bash
 cd backend-fastapi
 python -m venv venv
-.\venv\Scripts\activate  # Windows
+
+# Activar entorno virtual
+source venv/bin/activate       # macOS / Linux
+.\venv\Scripts\activate        # Windows
+
 pip install -r requirements.txt
 uvicorn main:app --reload
 ```
 
-### 3️⃣ Frontend (React + Vite)
+> El servidor arrancará en `http://localhost:8000`  
+> Documentación interactiva disponible en `http://localhost:8000/docs`
+
+#### 2. Frontend (React + Vite)
+
 ```bash
 cd front_proyecto
 npm install
 npm run dev
 ```
 
+> La app estará disponible en `http://localhost:5173`
+
 ---
 
-## 🐳 Despliegue con Docker
+### Opción B — Docker (recomendado)
 
-Para una configuración rápida "un solo click":
+Levanta todo el ecosistema con un solo comando:
 
 ```bash
-# Levantar el ecosistema completo
+# Iniciar todos los servicios
 docker compose up -d
+
+# Ver logs en tiempo real
+docker compose logs -f
 
 # Detener servicios
 docker compose down
 ```
 
----
+<br/>
 
-## 🛠️ Stack Tecnológico
+## Estructura del proyecto
 
-### Frontend
-- **React 19**: Interfaz declarativa y reactiva.
-- **Vite**: Bundler de última generación.
-- **Tailwind CSS**: Estilizado basado en utilidades.
+```
+📦 chatbot-hospital-talavera
+├── 🗂️  backend-fastapi/
+│   ├── main.py               # Punto de entrada FastAPI
+│   ├── routers/              # Endpoints organizados por dominio
+│   ├── models/               # Esquemas Pydantic
+│   └── requirements.txt
+├── 🗂️  front_proyecto/
+│   ├── src/
+│   │   ├── components/       # Componentes React reutilizables
+│   │   ├── pages/            # Vistas principales
+│   │   └── main.jsx
+│   └── package.json
+├── 🐳  docker-compose.yml
+└── 📄  README.md
+```
 
-### Backend
-- **FastAPI**: Rendimiento similar a Go/Node gracias a Python asíncrono.
-- **Motor**: Acceso asíncrono a MongoDB.
-- **Pydantic**: Seguridad de tipos y esquemas.
+<br/>
 
-### Almacenamiento
-- **MongoDB**: Flexibilidad total para datos médicos complejos.
-
----
-
-## 👥 Equipo y Colaboración
-
-<div align="center">
-
-| Curso | Integrantes |
-|:--- |:--- |
-| **2º DAM** | **Alvaro Rodrigo ** *(Líder DAM)*<br>Adrián Sánchez <br>Alejandro Galán <br>Omar Barrero |
-| **2º DAW** | **Diego González ** *(Líder DAW)*<br>Claudia Rodrguez<br>Hugo Rubio |
-
-</div>
-
----
+## Equipo
 
 <div align="center">
 
-## � Recursos
+### 2º Desarrollo de Aplicaciones Multiplataforma (DAM)
 
-[![Docs](https://img.shields.io/badge/Docs-Proyecto-blue?style=for-the-badge)](./docs)
-[![Web](https://img.shields.io/badge/IES-Ribera%20del%20Tajo-green?style=for-the-badge)](https://iesriberadeltajo.es)
+| Rol | Nombre |
+|---|---|
+| 👑 **Líder DAM** | Álvaro Rodrigo |
+| Desarrollador | Adrián Sánchez |
+| Desarrollador | Alejandro Galán |
+| Desarrollador | Omar Barrero |
 
-📊 Badges and Resources
+### 2º Desarrollo de Aplicaciones Web (DAW)
 
-    FastAPI Documentation
-    Node.js Documentation
-    PostgreSQL Documentation
-    MongoDB Documentation
-
-Actas de Conciliación y varios
-
-https://docs.google.com/document/d/1bBpsNPGa1qf3z5jqF7VlgnffzNveZo2EUUL07oe-dw0/edit?usp=sharing
-
-
-**Chatbot Talavera** - *Proyecto Educativo 2025-2026*
+| Rol | Nombre |
+|---|---|
+| 👑 **Líder DAW** | Diego González |
+| Desarrolladora | Claudia Rodríguez |
+| Desarrollador | Hugo Rubio |
 
 </div>
+
+<br/>
+
+## Documentación
+
+| Recurso | Enlace |
+|---|---|
+| 📄 Actas de conciliación | [Google Docs](https://docs.google.com/document/d/1bBpsNPGa1qf3z5jqF7VlgnffzNveZo2EUUL07oe-dw0/edit?usp=sharing) |
+| 🏫 IES Ribera del Tajo | [iesriberadeltajo.es](https://iesriberadeltajo.es) |
+| 📚 Docs FastAPI | [fastapi.tiangolo.com](https://fastapi.tiangolo.com) |
+| 📚 Docs MongoDB | [mongodb.com/docs](https://mongodb.com/docs) |
+| 📚 Docs React | [react.dev](https://react.dev) |
+
+<br/>
+
+---
+
+<div align="center">
+
+Proyecto educativo desarrollado en el **IES Ribera del Tajo** · Talavera de la Reina
+
+*DAM · DAW · Especialización en IA · 2025–2026*
+
+</div>
+
