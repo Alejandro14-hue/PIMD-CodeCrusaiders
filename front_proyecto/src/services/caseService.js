@@ -12,13 +12,18 @@ export const caseService = {
       headers: getAuthHeaders()
     });
     if (!response.ok) throw new Error('Error loading cases');
-    return response.json();
+    const payload = await response.json();
+    if (Array.isArray(payload)) return payload;
+    if (payload && Array.isArray(payload.data)) return payload.data;
+    return [];
   },
   getCaseById: async (id) => {
     const response = await fetch(`${BASE_ENDPOINT}/${id}`, {
       headers: getAuthHeaders()
     });
     if (!response.ok) throw new Error('Error loading case');
-    return response.json();
+    const payload = await response.json();
+    if (payload && typeof payload === 'object' && 'data' in payload) return payload.data;
+    return payload;
   }
 };
