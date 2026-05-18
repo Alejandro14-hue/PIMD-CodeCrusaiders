@@ -25,10 +25,16 @@ export function AuthProvider({ children }) {
     const token = params.get('token');
     if (token) {
       localStorage.setItem('token', token);
-      window.history.replaceState({}, '', '/');
+      window.history.replaceState({}, '', window.location.pathname);
     }
 
-    checkAuth();
+    (async () => {
+      await checkAuth();
+      // If we just completed an OAuth callback, force navigation to the app shell.
+      if (token) {
+        navigate('/', { replace: true });
+      }
+    })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
