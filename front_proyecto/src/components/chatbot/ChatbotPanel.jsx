@@ -21,27 +21,28 @@ function ChatbotPanel() {
 
     const userText = input.trim();
 
+    const history = messages.map((msg) => ({
+      role: msg.role,
+      content: msg.content,
+    }));
+
+    const payload = {
+      new_message: {
+        role: 'user',
+        content: userText,
+      },
+    };
+
+    if (history.length > 0) {
+      payload.history = history;
+    }
+
     const userMessage = { id: crypto.randomUUID(), role: 'user', content: userText };
     setMessages((prev) => [...prev, userMessage]);
     setInput('');
     setIsLoading(true);
 
     try {
-      const history = messages.map((msg) => ({
-        role: msg.role,
-        content: msg.content,
-      }));
-
-      const payload = {
-        new_message: {
-          role: 'user',
-          content: userText,
-        },
-      };
-
-      if (history.length > 0) {
-        payload.history = history;
-      }
 
       const response = await fetch(CHAT_API_ENDPOINT, {
         method: 'POST',
