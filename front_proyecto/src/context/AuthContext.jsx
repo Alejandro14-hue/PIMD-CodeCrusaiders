@@ -23,6 +23,12 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const token = params.get('token');
+    const error = params.get('error');
+
+    if (error) {
+      // Make OAuth failures visible instead of a "blank" screen.
+      console.error('[auth] OAuth error from backend:', error);
+    }
     if (token) {
       localStorage.setItem('token', token);
       window.history.replaceState({}, '', window.location.pathname);

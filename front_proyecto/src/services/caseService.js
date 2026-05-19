@@ -1,3 +1,4 @@
+// Nginx (prod) and Vite proxy (dev) map /api/v1/api/* -> backend /v1/api/*
 const BASE_ENDPOINT = '/api/v1/api';
 const RANDOM_ENDPOINT = `${BASE_ENDPOINT}/random/`;
 
