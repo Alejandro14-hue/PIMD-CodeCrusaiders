@@ -21,7 +21,14 @@ async def get_all_casos(limit: int = 10, offset: int = 0) -> List[Dict[str, Any]
 
 async def get_caso_by_id(caso_id: str) -> Optional[Dict[str, Any]]:
     try:
-        caso = await casos_collection.find_one({"_id": ObjectId(caso_id)})
+        try:
+            query_id = ObjectId(caso_id)
+        except Exception:
+            try:
+                query_id = int(caso_id)
+            except ValueError:
+                query_id = caso_id
+        caso = await casos_collection.find_one({"_id": query_id})
         if caso:
             caso["_id"] = str(caso["_id"])
         return caso
