@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './ChatbotPanel.css';
 
-const CHAT_API_ENDPOINT = '/api/v1/chatbot/';
+const CHAT_API_ENDPOINT = '/api/v1/chatbot/generate/';
 
 function ChatbotPanel() {
   const [input, setInput] = useState('');
