@@ -21,10 +21,13 @@ function ChatbotPanel() {
 
     const userText = input.trim();
 
-    const history = messages.map((msg) => ({
-      role: msg.role,
-      content: msg.content,
-    }));
+
+    const history = messages
+      .filter((msg) => msg.id !== 'welcome')
+      .map((msg) => ({
+        role: msg.role,
+        content: msg.content,
+      }));
 
     const payload = {
       new_message: {
