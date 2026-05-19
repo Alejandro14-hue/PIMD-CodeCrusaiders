@@ -1,10 +1,10 @@
 ## Especificación de Requisitos de Software (SRS)
 ### Para CodeCrusaders
 
-Versión 2.4  
+Versión 2.5  
 Preparado por Adrián Sánchez Elvira  
 Ies. Ribera del Tajo 
-06 / Nov / 2025
+18 / May / 2026
 
 ## Tabla de Contenidos
 <!-- TOC -->
@@ -37,6 +37,7 @@ Ies. Ribera del Tajo
 | Nombre | Fecha | Motivo del cambio | Versión |
 |--------|-------|-------------------|---------|
 |Adrián Sánchez Elvira|06 / Nov / 2025|Creación del documento|1.0|
+|Adrián Sánchez Elvira|18 / May / 2026|Actualización respecto a IA y backlog de SRS|2.5|
 
 ## 1. Introducción
 Este documento se ha formulado con el objetivo de documentar los requisitos, características y desarrollo del proyecto de la asignatura de Proyecto Inter-modular (PIMD).
@@ -47,7 +48,7 @@ Este SRS ayudará tanto al equipo de desarrollo (los alumnos), como a personas e
 Este documento seguirá siendo actualizado en caso de cambios de requisitos u otros factores, es recomendado revisar la versión y asegurarse de que es la más nueva antes de continuar.
 
 ### 1.2 Alcance del producto
-Como alcance que se nos ha descrito para el PMV (Producto mínimo viable), es una aplicación web utilizada por profesionales médicos para validar casos clínicos y asignarles una puntuación, una interfaz simple y una facilidad de navegación notable son puntos mencionados y que seguiremos.
+Como alcance que se nos ha descrito para el PMV (Producto mínimo viable), es una aplicación web utilizada por profesionales médicos para validar casos clínicos y asignarles una puntuación, una interfaz simple y una facilidad de navegación notable son puntos mencionados y que seguiremos. Actualmente el nuevo PMV incluirá la IA (Inteligencia Artifical) conversacional y su respectiva página.
 
 ### 1.3 Definiciones, siglas y abreviaturas
 <!--Proporcione un glosario de términos del dominio, siglas y abreviaturas (ordenado alfabéticamente).
@@ -73,11 +74,12 @@ La aplicación será una herramienta auxiliar paralela a los sistemas (bases de 
 * Interfaz comprensiva, sencilla y ligera.
 * Consultar un caso clínico de forma gráfica.
 * Poder asignarle una puntuación en distintos aspectos a dicho caso clínico.
-* Historial de dichas puntuaciones.
+* IA conversacional y fácil de usar para ayudar con diagnósticos de primera necesidad.
+* Historial de dichas conversaciones.
 * Almacenamiento rápido y seguro de los historiales y datos de sesión.
 
 ### 2.3 Restricciones del producto
-Debido al diseño y funcionalidades de la aplicación, la forma que hemos decidido para el almacenaje de información podría dividirse en dos, una porción encargada de guardar los inicios de sesión de forma segura, y otra para el almacenar las conversaciones en un formato conveniente y rápido.
+Debido al diseño y funcionalidades de la aplicación, la forma que hemos decidido para el almacenaje de información podría dividirse en dos principales tipos, una porción encargada de guardar los inicios de sesión de forma segura, y otra para el almacenar las conversaciones en un formato conveniente y rápido, serán relacionadas entre si dado que un usuario necesitará acceso a sus conversaciones.
 Otro punto de importancia es la interfaz, debido a que el nivel informático de los usuarios va a ser variado, lo concordado es una interfaz sencilla, fácilmente navegable y reminiscente de chatbots como ChatGPT.
 Se buscará un correcto funcionamiento en distintos navegadores, sistemas operativos y dispositivos con el fin de que el producto sea accesible. 
 
@@ -94,8 +96,8 @@ Como servicios de terceros estamos actualmente barajando algunas opciones refere
 Habrá cuatro subsistemas en los que se dividirán los recursos humanos y tecnológicos durante el desarrollo, estos son:
 * Frontend (Interfaz de usuario y conectividad): Se trata de la presentación correcta de la información hacia el usuario además de la recolección de lo que pida hacer el mismo a la aplicación. A resumidas cuentas, muestra las conversaciones, respuestas del usuario, el historial, etc.
 * Backend (Procesado de datos): Gestionará la sesión de los usuarios y los accesos a los datos como las conversaciones del usuario y su historial. Las peticiones y acciones que el usuario realiza en el Frontend se procesan en el backend.
-* Bases de Datos: Este punto se encuentra en plural porque por el momento nos planteamos el guardar los datos en dos bases de datos. Una de ellas guardará la información de los usuarios (Nombre, contraseña, etc.) y la otra guardará de forma más eficiente las conversaciones. La base de datos proporciona la información al backend para que lo procese y posteriormente lo envíe al frontend para que lo vea el usuario.
-* Inteligencia Artificial (IA): Esta será entrenada basada en casos médicos generados con IA y posteriormente filtrados y validados. La IA entrenada se encargará de responder a las preguntas y/o consultas que tengan los usuarios y devolver una respuesta que será procesada y mostrada en formato de conversación en el frontend.
+* Base de Datos: La forma de almacenar datos será en una base de datos no relacional o documental llamada MongoDB, en la cual será muy sencillo el guardar información referente a conversaciones y similar por el formato. El tipo de base de datos se dejó a nuestra discreción y decidimos MongoDB como mejor opción.
+* Inteligencia Artificial (IA): Esta sería entrenada basada en casos médicos generados con IA y posteriormente filtrados y validados. La IA entrenada se encargará de responder a las preguntas y/o consultas que tengan los usuarios y devolver una respuesta que será procesada y mostrada en formato de conversación en el frontend.
 
 ## 3. Requisitos específicos
 A continuación se describirán los requerimientos de la aplicación y como se refleja en los distintos apartados que la componen.
@@ -136,99 +138,86 @@ Se investigará para futuras versiones un formato de carga de datos que permita 
   - Descripción: Interfaces sencillas y fáciles de usar.
   - Precondiciones: Manejo de los datos para su posterior uso en las interfaces.
   - Postcondiciones: Mostrar dicha información de manera clara.
-  - Criterios de aceptación: la información se muestra de la manera descrita.
+  - Criterios de aceptación: La información se muestra de la manera descrita.
+ 
+- ID: RnF-2
+  - Descripción: Mantener datos a la vista.
+  - Precondiciones: Mostrar correctamente los datos y tener un menú de calificaciones.
+  - Postcondiciones: Mostrar dicha información además del formulario al mismo tiempo sin obstruirse entre ellos.
+  - Criterios de aceptación: Se puede valorar y leer información a la vez.
 
 #### 3.3.1 Rendimiento
 Se busca que el sistema sea capaz de mantenerse activo y con unos tiempos de respuesta a peticiones mínimos para todos los usuarios, los componentes como el frontend y backend intentarán realizar la cantidad justa y necesaria de consultas y operaciones para una mayor fluidez y menor carga sobre el dispositivo del usuario.
 
 #### 3.3.2 Seguridad
-Acceso a historiales de conversaciones únicos para cada usuario. Contraseña de usuarios almacenada de forma encriptada. Otras medidas serán discutidas para futuras versiones.
+Acceso a historiales de conversaciones únicos para cada usuario. Contraseña de usuarios almacenada de forma encriptada. Peticiones a la base de datos restringidas a usuarios verificados e iniciados para evitar que se hagan peticiones de manera externa. Uso correcto y verificado de la certificación HTTPS para encriptación de la transmisión de datos con el protocolo HTTP.
 
 #### 3.3.3 Fiabilidad
-Controlar errores de inicio de sesión, acceso a cuentas y recopilar los mensajes de error en ficheros de texto adecuados.
+Controlar errores de inicio de sesión en casos de no estar autorizada la conexión mediante la consola de Google. Recopilar los mensajes de error en ficheros de texto adecuados en el servidor. Se ha comprobado que no hay fugas de memoria ni similar tras mirar periodicamente el estado del servidor.
 
 #### 3.3.4 Disponibilidad
-Que la aplicación sea capaz de mantenerse activa en distintos niveles de carga y tiempos de ejecución.
+Que la aplicación sea capaz de mantenerse activa en distintos niveles de carga y tiempos de ejecución. Como ha sido mencionado, el servidor no tuvo ningún error o fallo tras estar activo durante un periodo de tiempo considerable.
 
 #### 3.3.5 Observabilidad
-Como se ha mencionado, se recopilarán los mensajes de error, otras métricas de rendimiento, fuera de las básicas como tiempos de respuesta, latencia, etc. serán discutidos más adelante.
+Tal como se ha dicho, se recopilarán los mensajes de error; otras métricas de rendimiento, fuera de las básicas como tiempos de respuesta, latencia, etc. serán discutidos más adelante.
 
 ### 3.4 Cumplimiento
-Leyes, normas, contratos o políticas aplicables (p. ej., GDPR, estándares de accesibilidad, normativas sectoriales). Cite la autoridad y criterios verificables.
-<!-- TODO -->
+RGPD (Reglamento General de Protección de Datos) y LOPDGDD: Al manejar correos electrónicos y contraseñas de usuarios, el sistema debe cumplir con la normativa española y europea de protección de datos. Las contraseñas deben estar cifradas (hashing) y no se almacenarán datos reales de pacientes que puedan vulnerar la privacidad médica, obviando lo no controlable como los datos escritos por los médicos en la conversación con la IA.
 
 ### 3.5 Diseño e implementación
 Mandatos y restricciones sobre el diseño, despliegue y mantenimiento.
-<!-- TODO -->
 
 #### 3.5.1 Instalación
-Plataformas soportadas, dependencias, prerequisitos y pasos básicos de instalación/configuración.
-<!-- TODO -->
+Plataformas soportadas: El sistema está diseñado para ser agnóstico al sistema operativo subyacente gracias a la contenedorización, siendo compatible con servidores Linux (Ubuntu Server/Debian recomendados para el entorno del instituto), macOS y Windows.
+
+Requisitos de software previos: Node.js (v18 o superior), Python (v3.11 o superior), MongoDB (v4.4 o superior) y el motor de Docker con Docker Compose.
+
+Pasos de instalación: 
+1. Clonar el repositorio oficial del proyecto en el servidor del instituto.
+2. Configurar el archivo de variables de entorno .env en la raíz (especificando los tokens de la IA, las credenciales cifradas de acceso y la URI de conexión a la base de datos).
+3. Ejecutar el comando docker compose up -d para desplegar automáticamente de manera aislada los contenedores del Frontend (React/Vite), Backend (FastAPI) y la Base de Datos (MongoDB).
 
 #### 3.5.2 Compilación y entrega
-Gestión de dependencias, automatización de builds, firmas/artifacts y trazabilidad de versiones.
-<!-- TODO -->
+En el Frontend se gestionan mediante npm utilizando el archivo package.json. En el Backend se administran a través de pip con el archivo requirements.txt. Se utiliza Git como sistema de control de versiones distribuido, organizando el flujo de trabajo mediante ramas.
 
 #### 3.5.3 Distribución
-Topologías de despliegue, replicación de datos y consideraciones para entornos distribuidos.
-<!-- TODO -->
+El Frontend actúa como una aplicación web de cara al usuario, que se ejecuta en el navegador. Este mediante sus acciones en la web realizará llamadas asíncronas HTTP/HTTPS mediante una API REST hacia el Backend. El Backend actúa como pasarela segura, procesando la lógica de negocio, comunicándose con la IA y persistiendo los datos de los historiales directamente en la instancia de MongoDB.
 
 #### 3.5.4 Mantenibilidad
-Medidas que facilitan modificaciones: modularidad, estándares de código, documentación, pruebas y cobertura mínima requerida.
-<!-- TODO -->
+Para la mantenibilidad del proyecto utilizamos varios métodos comunes. Modularidad clásica en 3 capas: Presentación, Aplicación y Datos. Documentación sobre las configuraciones, despliegues y utilización. Pruebas unitarias automatizadas mediante GitHub Actions sencillas pero con cobertura de lo necesario. Facilidad de migraciones y escalabilidad gracias a utilizar Docker como contenerización de los componentes.
 
 #### 3.5.5 Reutilizabilidad
-Componentes diseñados para ser reutilizados en otros proyectos o módulos.
-<!-- TODO -->
+Componentes en el frontend que utilizan datos dinámicos mediante consulta del Backend, mientras los datos sean similares, el diseño se puede reutilizar. En cuanto al Backend, se requeriría cambiar la configuración que lo conecta a la Base de Datos además de que las colecciones de datos de la misma se llamen igual para evitar errores.
 
 #### 3.5.6 Portabilidad
-Requisitos para ejecutar en entornos alternativos (SO, proveedores cloud, contenedores, etc.).
-<!-- TODO -->
+Punto de mayor enfasis que se conectaría con la instalación y mantenibilidad, donde señalamos el uso de contenedores de Docker para hacer la aplicación insensible a su entorno.
 
 #### 3.5.7 Coste
-Presupuestos o restricciones económicas que impactan diseño/operación (gasto en cloud, licencias, coste por transacción).
-<!-- TODO -->
+Los costes no se nos han sido descritos de ninguna manera, pero durante el desarrollo, hemos utilizado herramientas como la consola de la nube de Google a un coste nulo, pero en una escala mucho mayor conlleva un precio.
 
-#### 3.5.8 Plazos
-Hitos, fechas de entrega y criterios de madurez para cada entrega.
-<!-- TODO -->
-
-#### 3.5.9 Prueba de concepto (PoC)
-Objetivos, alcance, duracion y criterios de éxito de cualquier PoC asociado.
-<!-- TODO -->
-
-#### 3.5.10 Gestión de cambios
-Proceso para proponer, aprobar y registrar cambios en requisitos (roles, artefactos requeridos, flujo de trabajo).
-<!-- TODO -->
+#### 3.5.8 Prueba de concepto (PoC)
+Demonstración en vivo de la navegación por las páginas sin fallos o latencias inesperadas, además de consultas rápidas para los casos clínicos semi-aleatorios.
 
 ### 3.6 IA/ML (si corresponde)
 Requisitos específicos para componentes de IA/ML.
-<!-- TODO? -->
 
 #### 3.6.1 Especificación del modelo
-Propósito del modelo, entradas/salidas, métricas objetivo, datos de validación y versionado.
-<!-- TODO? -->
+El propósito es actuar como un asistente conversacional especializado para ayudar a diagnósticos médicos de primera necesidad. Teniendo entrada de datos en formato de texto por parte del usuario y salida en texto legible y entendible por el mismo.
 
 #### 3.6.2 Gestión de datos
-Origen de los datos, etiquetado, anonimización, gobernanza y almacenamiento.
-<!-- TODO? -->
+Siguiendo un estricto principio de diseño enfocado en la seguridad, la aplicación opera únicamente con datos sintéticos. Queda estrictamente prohibida la introducción de historiales médicos de pacientes reales o datos personales protegidos (nombres, DNI, números de afiliación), garantizando el cumplimiento pleno del RGPD y eliminando cualquier superficie de filtración de información confidencial.
 
 #### 3.6.3 Guardrails
-Validaciones, filtros de salida, límites de acción y controles para prevenir resultados no deseados.
-<!-- TODO? -->
+Validaciones, filtros de salida, límites de acción y controles para prevenir resultados no deseados. Se supondrá que los guardrails básicos se llevan consigo en el mismo modelo.
 
 #### 3.6.4 Ética
-Medidas de equidad, transparencia y responsabilidad.
-<!-- TODO? -->
+Debido a regulaciones respecto a las IAs, la aplicación muestra de manera explícita que la conversación se está sosteniendo con un agente inteligente artificial.
 
 #### 3.6.5 Human-in-the-loop
-Puntos de revisión humana, escalado y mecanismo de retroalimentación.
-
-<!-- TODO? -->
+El diseño entero de la plataforma responde a este paradigma. La IA bajo ningún concepto toma decisiones médicas automatizadas ni vinculantes. Su único fin es servir como un entorno auxiliar.
 
 #### 3.6.6 Ciclo de vida y operaciones del modelo
-Despliegue, monitorización, reentrenamiento y retiro de versiones.
-<!-- TODO? -->
+El almacenamiento y retroalimentación en la validación de casos clínicos se mantiene abierto a usarse para el entrenamiento continuo de la IA.
 
 ## 4. Verificación
 Tabla para relacionar cada requisito con su método de verificación (prueba, inspección, análisis), artefactos de prueba y estado.
