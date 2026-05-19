@@ -1,8 +1,7 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import './ChatbotPanel.css';
 
 function ChatbotPanel() {
-  const [open, setOpen] = useState(false);
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState([
     {
@@ -28,43 +27,35 @@ function ChatbotPanel() {
     setInput('');
   };
 
-  const headerLabel = useMemo(() => (open ? 'Chatbot IA' : 'Abrir Chatbot IA'), [open]);
-
   return (
     <section className="chatbot">
-      <button className="chatbot__toggle" onClick={() => setOpen((v) => !v)}>
-        {headerLabel}
-      </button>
-
-      {open ? (
-        <div className="chatbot__panel">
-          <div className="chatbot__messages" role="log" aria-label="Chatbot">
-            {messages.map((m) => (
-              <div
-                key={m.id}
-                className={`chatbot__message ${m.role === 'user' ? 'is-user' : 'is-assistant'}`}
-              >
-                {m.content}
-              </div>
-            ))}
-          </div>
-
-          <div className="chatbot__composer">
-            <input
-              className="chatbot__input"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="Escribe un mensaje..."
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') onSend();
-              }}
-            />
-            <button className="chatbot__send" onClick={onSend} disabled={!canSend}>
-              Enviar
-            </button>
-          </div>
+      <div className="chatbot__panel">
+        <div className="chatbot__messages" role="log" aria-label="Chatbot">
+          {messages.map((m) => (
+            <div
+              key={m.id}
+              className={`chatbot__message ${m.role === 'user' ? 'is-user' : 'is-assistant'}`}
+            >
+              {m.content}
+            </div>
+          ))}
         </div>
-      ) : null}
+
+        <div className="chatbot__composer">
+          <input
+            className="chatbot__input"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Escribe un mensaje..."
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') onSend();
+            }}
+          />
+          <button className="chatbot__send" onClick={onSend} disabled={!canSend}>
+            Enviar
+          </button>
+        </div>
+      </div>
     </section>
   );
 }

@@ -1,28 +1,18 @@
 .chatbot {
-  padding: 12px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.chatbot__toggle {
-  width: 100%;
-  padding: 10px 12px;
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.06);
-  color: inherit;
-  cursor: pointer;
-  font-weight: 600;
+  height: 100%;
 }
 
 .chatbot__panel {
-  margin-top: 10px;
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.12);
   overflow: hidden;
+  height: min(70vh, 720px);
+  display: flex;
+  flex-direction: column;
 }
 
 .chatbot__messages {
-  max-height: 220px;
+  flex: 1;
   overflow: auto;
   padding: 10px;
   display: flex;
