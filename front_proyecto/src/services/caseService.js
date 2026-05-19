@@ -1,4 +1,10 @@
-// Nginx (prod) and Vite proxy (dev) map /api/v1/api/* -> backend /v1/api/*
+const API_BASE_URL = (import.meta?.env?.VITE_API_BASE_URL || '').replace(/\/$/, '');
+const withBase = (path) => {
+  if (API_BASE_URL) return `${API_BASE_URL}${path}`;
+  return path;
+};
+
+// Nginx (prod) maps /api/v1/api/* -> backend /v1/api/*
 const BASE_ENDPOINT = '/api/v1/api';
 const RANDOM_ENDPOINT = `${BASE_ENDPOINT}/random/`;
 
@@ -9,7 +15,7 @@ const getAuthHeaders = () => {
 
 export const caseService = {
   getCases: async () => {
-    const response = await fetch(RANDOM_ENDPOINT, {
+    const response = await fetch(withBase(RANDOM_ENDPOINT), {
       headers: getAuthHeaders()
     });
     if (!response.ok) throw new Error('Error loading cases');
@@ -19,7 +25,7 @@ export const caseService = {
     return [];
   },
   getCaseById: async (id) => {
-    const response = await fetch(`${BASE_ENDPOINT}/${id}`, {
+    const response = await fetch(withBase(`${BASE_ENDPOINT}/${id}`), {
       headers: getAuthHeaders()
     });
     if (!response.ok) throw new Error('Error loading case');

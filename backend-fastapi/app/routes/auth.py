@@ -46,7 +46,7 @@ async def auth_callback(request: Request):
         token = await oauth.google.authorize_access_token(request)
         if not token:
             logger.error("No se recibió token en el callback")
-                return RedirectResponse(url=f"{FRONTEND_URL}?error=no_token")
+            return RedirectResponse(url=f"{FRONTEND_URL}?error=no_token")
 
         user = token.get("userinfo")
         if user:
@@ -59,13 +59,13 @@ async def auth_callback(request: Request):
             jwt_token = create_access_token(
                 data={"sub": user["sub"], "email": user["email"], "role": "admin"}
             )
-                return RedirectResponse(url=f"{FRONTEND_URL}?token={jwt_token}")
+            return RedirectResponse(url=f"{FRONTEND_URL}?token={jwt_token}")
 
         logger.error("No se pudo obtener información del usuario desde el token")
-            return RedirectResponse(url=f"{FRONTEND_URL}?error=user_info_missing")
+        return RedirectResponse(url=f"{FRONTEND_URL}?error=user_info_missing")
     except Exception as e:
         logger.error(f"Error crítico en el callback de autenticación: {e}", exc_info=True)
-            return RedirectResponse(url=f"{FRONTEND_URL}?error=auth_failed")
+        return RedirectResponse(url=f"{FRONTEND_URL}?error=auth_failed")
 
 
 @router.get("/logout")
