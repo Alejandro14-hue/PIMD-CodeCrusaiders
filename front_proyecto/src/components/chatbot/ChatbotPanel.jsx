@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './ChatbotPanel.css';
 
-const CHAT_API_ENDPOINT = 'https://cloud.riberadeltajo.es:11200/generate/';
+const CHAT_API_ENDPOINT = 'http://cloud.riberadeltajo.es:11200/generate/';
 
 function ChatbotPanel() {
   const [input, setInput] = useState('');
@@ -27,7 +27,7 @@ function ChatbotPanel() {
     setIsLoading(true);
 
     try {
-      const history = [...messages, userMessage].map((msg) => ({
+      const history = messages.map((msg) => ({
         role: msg.role,
         content: msg.content,
       }));
