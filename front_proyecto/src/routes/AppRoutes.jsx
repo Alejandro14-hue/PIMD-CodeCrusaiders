@@ -29,7 +29,8 @@ function AppRoutes() {
         path="/login"
         element={user ? <Navigate to="/" replace /> : <LoginPage onLogin={login} />}
       />
-      <Route path="/" element={user ? <AppShellSafe /> : <Navigate to="/login" replace />} />
+      {/* Allow nested routes under AppShell (e.g. /chat) */}
+      <Route path="/*" element={user ? <AppShellSafe /> : <Navigate to="/login" replace />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );

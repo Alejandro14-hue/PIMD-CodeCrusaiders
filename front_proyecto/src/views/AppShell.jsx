@@ -35,22 +35,6 @@ function AppShell() {
   const { user, logout } = useAuthContext();
   const { cases, selectedCaseId, setSelectedCaseId, selectedCase } = useCasesContext();
 
-  const onDownloadResults = () => {
-    const payload = {
-      exportedAt: new Date().toISOString(),
-      user: user?.email || user?.name || null,
-      selectedCaseId: selectedCaseId || null,
-      selectedCase: selectedCase || null,
-    };
-    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'resultados.json';
-    a.click();
-    URL.revokeObjectURL(url);
-  };
-
   const sidebar = useMemo(() => {
     return (
       <>
@@ -69,11 +53,10 @@ function AppShell() {
       sidebar={sidebar}
       user={user}
       onLogout={logout}
-      onDownloadResults={onDownloadResults}
     >
       <Routes>
         <Route path="/" element={<CaseDetailPanel selectedCase={selectedCase} />} />
-        <Route path="/chat" element={<ChatbotPanel />} />
+        <Route path="chat" element={<ChatbotPanel />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </AppLayout>

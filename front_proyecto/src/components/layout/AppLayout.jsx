@@ -1,6 +1,6 @@
 import './AppLayout.css'
 
-function AppLayout({ sidebar, children, user, onLogout, onDownloadResults }) {
+function AppLayout({ sidebar, children, user, onLogout }) {
   return (
     <div className="app-layout">
       <aside className="app-layout__sidebar">
@@ -15,7 +15,6 @@ function AppLayout({ sidebar, children, user, onLogout, onDownloadResults }) {
           <div className="app-layout__topbar-left">
             <button
               className="app-layout__download"
-              onClick={onDownloadResults}
               type="button"
             >
               Descargar Resultados
