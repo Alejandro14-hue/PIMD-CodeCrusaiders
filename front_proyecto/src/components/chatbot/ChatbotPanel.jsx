@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './ChatbotPanel.css';
 
-const CHAT_API_ENDPOINT = 'http://cloud.riberadeltajo.es:11200/generate/';
+const CHAT_API_ENDPOINT = '/api/v1/chatbot/';
 
 function ChatbotPanel() {
   const [input, setInput] = useState('');
