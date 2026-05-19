@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import './ChatbotPanel.css';
 
+const CHAT_API_ENDPOINT = 'http://cloud.riberadeltajo.es:11200/generate/';
+
 function ChatbotPanel() {
   const [input, setInput] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const [messages, setMessages] = useState([
     {
       id: 'welcome',
@@ -11,20 +14,67 @@ function ChatbotPanel() {
     },
   ]);
 
-  const canSend = input.trim().length > 0;
+  const canSend = input.trim().length > 0 && !isLoading;
 
-  const onSend = () => {
+  const onSend = async () => {
     if (!canSend) return;
 
-    const userMessage = { id: crypto.randomUUID(), role: 'user', content: input.trim() };
-    const botMessage = {
-      id: crypto.randomUUID(),
-      role: 'assistant',
-      content: 'Buenas soy el Chatbot Primaria -CodeCrusaiders',
-    };
+    const userText = input.trim();
 
-    setMessages((prev) => [...prev, userMessage, botMessage]);
+    const userMessage = { id: crypto.randomUUID(), role: 'user', content: userText };
+    setMessages((prev) => [...prev, userMessage]);
     setInput('');
+    setIsLoading(true);
+
+    try {
+      const history = [...messages, userMessage].map((msg) => ({
+        role: msg.role,
+        content: msg.content,
+      }));
+
+      const payload = {
+        new_message: {
+          role: 'user',
+          content: userText,
+        },
+      };
+
+      if (history.length > 0) {
+        payload.history = history;
+      }
+
+      const response = await fetch(CHAT_API_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error en la respuesta del servidor (${response.status})`);
+      }
+
+      const data = await response.json();
+      const botText = data?.[0]?.generated_text || 'Lo siento, no pude generar una respuesta.';
+
+      const botMessage = {
+        id: crypto.randomUUID(),
+        role: 'assistant',
+        content: botText,
+      };
+      setMessages((prev) => [...prev, botMessage]);
+    } catch (error) {
+      console.error('Error al llamar a la API:', error);
+      const errorMessage = {
+        id: crypto.randomUUID(),
+        role: 'assistant',
+        content: 'Hubo un error de conexion. Por favor, intentalo de nuevo.',
+      };
+      setMessages((prev) => [...prev, errorMessage]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -52,7 +102,7 @@ function ChatbotPanel() {
             }}
           />
           <button className="chatbot__send" onClick={onSend} disabled={!canSend}>
-            Enviar
+            {isLoading ? 'Enviando...' : 'Enviar'}
           </button>
         </div>
       </div>
