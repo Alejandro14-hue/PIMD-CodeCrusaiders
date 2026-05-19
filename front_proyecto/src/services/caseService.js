@@ -4,7 +4,6 @@ const withBase = (path) => {
   return path;
 };
 
-// Nginx (prod) maps /api/v1/api/* -> backend /v1/api/*
 const BASE_ENDPOINT = '/api/v1/api';
 const RANDOM_ENDPOINT = `${BASE_ENDPOINT}/random/`;
 

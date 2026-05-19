@@ -22,7 +22,6 @@
   border-bottom: 1px solid #334155;
 }
 
-/* Layout de dos columnas: campos a la izquierda, formulario a la derecha */
 .case-detail-panel__body {
   display: flex;
   gap: 2rem;
@@ -40,7 +39,6 @@
   top: 1rem;
 }
 
-/* En pantallas medianas el formulario baja debajo */
 @media (max-width: 1024px) {
   .case-detail-panel__body {
     flex-direction: column;

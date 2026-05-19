@@ -26,7 +26,6 @@ export function AuthProvider({ children }) {
     const error = params.get('error');
 
     if (error) {
-      // Make OAuth failures visible instead of a "blank" screen.
       console.error('[auth] OAuth error from backend:', error);
     }
     if (token) {
@@ -36,7 +35,6 @@ export function AuthProvider({ children }) {
 
     (async () => {
       await checkAuth();
-      // If we just completed an OAuth callback, force navigation to the app shell.
       if (token) {
         navigate('/', { replace: true });
       }

@@ -10,7 +10,6 @@ describe('authService', () => {
   it('getUser should fetch the current user', async () => {
     const mockUser = { email: 'test@example.com', name: 'Test User' };
 
-    // Mock successful fetch
     global.fetch.mockResolvedValue({
       ok: true,
       json: async () => mockUser,

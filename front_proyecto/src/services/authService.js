@@ -1,7 +1,6 @@
 const API_BASE_URL = (import.meta?.env?.VITE_API_BASE_URL || '').replace(/\/$/, '');
 
 const withBase = (path) => {
-  // If VITE_API_BASE_URL is set, bypass nginx proxy to avoid 502s.
   if (API_BASE_URL) return `${API_BASE_URL}${path}`;
   return path;
 };
@@ -20,7 +19,6 @@ export const authService = {
     return response.json();
   },
   login: () => {
-    // Use full-page redirect for OAuth.
     window.location.href = withBase('/api/v1/auth/login');
   },
   logout: () => {
