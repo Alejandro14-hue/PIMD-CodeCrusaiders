@@ -4,3 +4,4 @@ from app.core.config import MONGODB_URL
 client = AsyncIOMotorClient(MONGODB_URL)
 db = client.codecrusaders
 casos_collection = db.casos
+conversaciones_collection = db.conversaciones
