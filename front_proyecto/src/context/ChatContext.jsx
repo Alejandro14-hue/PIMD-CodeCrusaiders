@@ -7,9 +7,16 @@ export function ChatProvider({ children }) {
   const [conversations, setConversations] = useState([]);
   const [currentConvId, setCurrentConvId] = useState(null);
   const [loadedMessages, setLoadedMessages] = useState(null);
-  // sessionKey fuerza el remontaje de ChatbotPanel al cambiar de conversación
   const [sessionKey, setSessionKey] = useState(0);
+
+  // Ref para que saveMessages siempre vea el ID actualizado sin re-crearse
+  const currentConvIdRef = useRef(null);
   const savingRef = useRef(false);
+
+  const setConvId = (id) => {
+    currentConvIdRef.current = id;
+    setCurrentConvId(id);
+  };
 
   const loadConversations = useCallback(async () => {
     try {
@@ -23,7 +30,7 @@ export function ChatProvider({ children }) {
   const selectConversation = useCallback(async (convId) => {
     try {
       const res = await chatService.getConversation(convId);
-      setCurrentConvId(convId);
+      setConvId(convId);
       setLoadedMessages(res.data?.mensajes || []);
       setSessionKey((k) => k + 1);
     } catch (err) {
@@ -32,36 +39,37 @@ export function ChatProvider({ children }) {
   }, []);
 
   const startNewChat = useCallback(() => {
-    setCurrentConvId(null);
+    setConvId(null);
     setLoadedMessages(null);
     setSessionKey((k) => k + 1);
   }, []);
 
-  // Llamar tras cada respuesta de la IA con los mensajes actuales (sin el welcome)
   const saveMessages = useCallback(
     async (messages) => {
       if (savingRef.current) return;
       savingRef.current = true;
       try {
-        if (currentConvId) {
-          await chatService.updateConversation(currentConvId, messages);
-          await loadConversations();
+        const convId = currentConvIdRef.current;
+        if (convId) {
+          await chatService.updateConversation(convId, messages);
         } else {
           const titulo =
             messages.find((m) => m.role === 'user')?.content?.slice(0, 60) ||
             'Nueva conversación';
           const res = await chatService.createConversation(messages, titulo);
           const newId = res.data?.id;
-          setCurrentConvId(newId);
-          await loadConversations();
+          setConvId(newId);
         }
+        // Refrescar la lista del sidebar
+        const res = await chatService.getConversations();
+        setConversations(res.data || []);
       } catch (err) {
         console.error('Error guardando conversación:', err);
       } finally {
         savingRef.current = false;
       }
     },
-    [currentConvId, loadConversations],
+    [], // sin dependencias: usa la ref siempre actualizada
   );
 
   return (

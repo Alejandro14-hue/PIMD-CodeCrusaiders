@@ -18,7 +18,6 @@ function ChatbotPanel() {
   const [messages, setMessages] = useState([WELCOME]);
   const messagesEndRef = useRef(null);
 
-  // Cuando el contexto carga una conversación existente, inicializar los mensajes
   useEffect(() => {
     if (loadedMessages === null) {
       setMessages([WELCOME]);
@@ -30,7 +29,6 @@ function ChatbotPanel() {
     }
   }, [loadedMessages]);
 
-  // Scroll automático al último mensaje
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
@@ -47,15 +45,19 @@ function ChatbotPanel() {
       .filter((m) => m.id !== 'welcome')
       .map(({ role, content }) => ({ role, content }));
 
-    const payload = { new_message: { role: 'user', content: userText } };
-    if (history.length > 0) payload.history = history;
-
     const userMessage = { id: crypto.randomUUID(), role: 'user', content: userText };
     setMessages((prev) => [...prev, userMessage]);
     setIsLoading(true);
 
+    // Guardar en cuanto el usuario envía (sin esperar a la IA)
+    const messagesWithUser = [...history, { role: 'user', content: userText }];
+    await saveMessages(messagesWithUser);
+
     try {
       const token = localStorage.getItem('token');
+      const payload = { new_message: { role: 'user', content: userText } };
+      if (history.length > 0) payload.history = history;
+
       const response = await fetch(CHAT_API_ENDPOINT, {
         method: 'POST',
         headers: {
@@ -65,9 +67,7 @@ function ChatbotPanel() {
         body: JSON.stringify(payload),
       });
 
-      if (!response.ok) {
-        throw new Error(`Error del servidor (${response.status})`);
-      }
+      if (!response.ok) throw new Error(`Error del servidor (${response.status})`);
 
       const data = await response.json();
       const botText =
@@ -76,15 +76,10 @@ function ChatbotPanel() {
       const botMessage = { id: crypto.randomUUID(), role: 'assistant', content: botText };
       setMessages((prev) => [...prev, botMessage]);
 
-      // Auto-save: construimos el array actualizado sin depender del estado
-      const updatedForSave = [
-        ...history,
-        { role: 'user', content: userText },
-        { role: 'assistant', content: botText },
-      ];
-      await saveMessages(updatedForSave);
+      // Actualizar la conversación con la respuesta de la IA
+      await saveMessages([...messagesWithUser, { role: 'assistant', content: botText }]);
     } catch (error) {
-      console.error('Error al llamar a la API:', error);
+      console.error('Error al llamar a la API del chatbot:', error);
       setMessages((prev) => [
         ...prev,
         {
