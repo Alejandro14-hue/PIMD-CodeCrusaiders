@@ -6,6 +6,7 @@ from app.routes.casos_routes import router as casos_router
 from app.routes.auth import router as auth_router
 from app.routes.sync_routes import router as sync_router
 from app.routes.chatbot_routes import router as chatbot_router
+from app.routes.valoraciones_routes import router as valoraciones_router
 from app.core.config import SECRET_KEY, CORS_ORIGINS, MONGODB_URL
 import logging
 import sys
@@ -65,6 +66,7 @@ app.include_router(casos_router)
 app.include_router(auth_router, prefix="/auth", tags=["auth"])
 app.include_router(sync_router, prefix="/sync", tags=["sync"])
 app.include_router(chatbot_router)
+app.include_router(valoraciones_router)
 
 @app.get("/health")
 async def health_check():

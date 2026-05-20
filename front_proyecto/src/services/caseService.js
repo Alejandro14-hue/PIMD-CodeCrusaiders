@@ -31,5 +31,25 @@ export const caseService = {
     const payload = await response.json();
     if (payload && typeof payload === 'object' && 'data' in payload) return payload.data;
     return payload;
-  }
+  },
+
+  submitRating: async (valoracion) => {
+    const response = await fetch(withBase('/api/v1/valoraciones/'), {
+      method: 'POST',
+      headers: { ...getAuthHeaders(), 'Content-Type': 'application/json' },
+      body: JSON.stringify(valoracion),
+    });
+    if (!response.ok) throw new Error('Error al enviar la valoración');
+    return response.json();
+  },
+
+  getMyRating: async (casoId) => {
+    const response = await fetch(withBase(`/api/v1/valoraciones/${casoId}/me`), {
+      headers: getAuthHeaders(),
+    });
+    if (response.status === 404) return null;
+    if (!response.ok) throw new Error('Error al obtener valoración');
+    const payload = await response.json();
+    return payload.data;
+  },
 };

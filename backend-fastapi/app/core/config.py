@@ -16,3 +16,6 @@ FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:8080")
 
 # URL de MongoDB
 MONGODB_URL = os.getenv("MONGODB_URL")
+
+# Webhook de n8n para valoraciones
+N8N_WEBHOOK_URL = os.getenv("N8N_WEBHOOK_URL", "")

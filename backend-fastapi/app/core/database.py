@@ -5,3 +5,4 @@ client = AsyncIOMotorClient(MONGODB_URL)
 db = client.codecrusaders
 casos_collection = db.casos
 conversaciones_collection = db.conversaciones
+valoraciones_collection = db.valoraciones
