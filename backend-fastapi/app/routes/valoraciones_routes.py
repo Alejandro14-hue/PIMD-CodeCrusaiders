@@ -24,6 +24,12 @@ class ValoracionIn(BaseModel):
     comentario: Optional[str] = None
 
 
+@router.get("/")
+async def get_all_valoraciones():
+    docs = await valoraciones_service.get_all_valoraciones()
+    return {"ok": True, "data": docs, "total": len(docs)}
+
+
 @router.post("/")
 async def submit_valoracion(
     body: ValoracionIn,

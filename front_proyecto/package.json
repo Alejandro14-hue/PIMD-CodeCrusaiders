@@ -11,6 +11,8 @@
     "test": "vitest"
   },
   "dependencies": {
+    "jspdf": "^4.2.1",
+    "jspdf-autotable": "^5.0.8",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },
@@ -23,8 +25,8 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",
+    "jsdom": "^26.0.0",
     "vite": "^7.3.1",
-    "vitest": "^3.0.0",
-    "jsdom": "^26.0.0"
+    "vitest": "^3.0.0"
   }
 }

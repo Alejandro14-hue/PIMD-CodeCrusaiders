@@ -38,3 +38,12 @@ async def get_valoraciones_by_caso(caso_id: str) -> list:
         doc["_id"] = str(doc["_id"])
         result.append(doc)
     return result
+
+
+async def get_all_valoraciones() -> list:
+    cursor = valoraciones_collection.find({}).sort("caso_id", 1)
+    result = []
+    async for doc in cursor:
+        doc["_id"] = str(doc["_id"])
+        result.append(doc)
+    return result

@@ -1,4 +1,51 @@
+import { jsPDF } from 'jspdf';
+import autoTable from 'jspdf-autotable';
 import './AppLayout.css'
+
+const FIELD_LABELS = {
+  precision_diagnostica: 'Precisión diagnóstica',
+  claridad_textual: 'Claridad textual',
+  relevancia_clinica: 'Relevancia clínica',
+  adecuacion_contextual: 'Adecuación contextual',
+  nivel_tecnico_adecuado: 'Nivel técnico adecuado',
+};
+
+async function downloadResultsPDF() {
+  const token = localStorage.getItem('token');
+  const res = await fetch('/api/v1/valoraciones/', {
+    headers: token ? { Authorization: `Bearer ${token}` } : {},
+  });
+  if (!res.ok) { alert('Error al obtener las valoraciones'); return; }
+  const { data } = await res.json();
+
+  const doc = new jsPDF({ orientation: 'landscape' });
+  const now = new Date().toLocaleDateString('es-ES');
+
+  doc.setFontSize(16);
+  doc.text('Resultados de Valoraciones — Code Crusaders', 14, 16);
+  doc.setFontSize(10);
+  doc.setTextColor(120);
+  doc.text(`Generado el ${now} · Total: ${data.length} valoraciones`, 14, 23);
+  doc.setTextColor(0);
+
+  autoTable(doc, {
+    startY: 28,
+    head: [['Caso ID', 'Usuario', 'Precisión diag.', 'Claridad text.', 'Relevancia clín.', 'Adecuación cont.', 'Nivel técnico', 'Media', 'Comentario', 'Fecha']],
+    body: data.map((v) => {
+      const scores = Object.keys(FIELD_LABELS).map(k => v[k] ?? '-');
+      const nums = scores.filter(s => typeof s === 'number');
+      const avg = nums.length ? (nums.reduce((a, b) => a + b, 0) / nums.length).toFixed(1) : '-';
+      const fecha = v.fecha ? new Date(v.fecha).toLocaleDateString('es-ES') : '-';
+      return [v.caso_id, v.user_id, ...scores, avg, v.comentario || '', fecha];
+    }),
+    styles: { fontSize: 8, cellPadding: 2 },
+    headStyles: { fillColor: [0, 123, 255], textColor: 255, fontStyle: 'bold' },
+    alternateRowStyles: { fillColor: [245, 247, 250] },
+    columnStyles: { 8: { cellWidth: 40 } },
+  });
+
+  doc.save(`valoraciones_${now.replace(/\//g, '-')}.pdf`);
+}
 
 function AppLayout({ sidebar, children, user, onLogout }) {
   return (
@@ -16,6 +63,7 @@ function AppLayout({ sidebar, children, user, onLogout }) {
             <button
               className="app-layout__download"
               type="button"
+              onClick={downloadResultsPDF}
             >
               Descargar Resultados
             </button>
