@@ -4,7 +4,6 @@
   width: 100%;
   background-color: #0f172a;
   color: #e2e8f0;
-  overflow: clip;
 }
 
 .app-layout__sidebar {
@@ -103,6 +102,7 @@
 
 .app-layout__main {
   flex: 1;
+  min-height: 0;
   padding: 2rem;
   overflow-y: auto;
 }

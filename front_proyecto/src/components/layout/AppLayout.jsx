@@ -1,6 +1,4 @@
 import { useState } from 'react';
-import { jsPDF } from 'jspdf';
-import autoTable from 'jspdf-autotable';
 import './AppLayout.css'
 
 const FIELD_LABELS = {
@@ -18,6 +16,11 @@ async function fetchAndGeneratePDF() {
   });
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   const { data } = await res.json();
+
+  const [{ jsPDF }, { default: autoTable }] = await Promise.all([
+    import('jspdf'),
+    import('jspdf-autotable'),
+  ]);
 
   const doc = new jsPDF({ orientation: 'landscape' });
   const now = new Date().toLocaleDateString('es-ES');
