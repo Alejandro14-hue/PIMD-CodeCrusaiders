@@ -1,10 +1,10 @@
 ## Especificación de Requisitos de Software (SRS)
 ### Para CodeCrusaders
 
-Versión 2.5  
+Versión 2.1  
 Preparado por Adrián Sánchez Elvira  
 Ies. Ribera del Tajo 
-18 / May / 2026
+20 / May / 2026
 
 ## Tabla de Contenidos
 <!-- TOC -->
@@ -27,7 +27,7 @@ Ies. Ribera del Tajo
     * [3.3 Calidad del servicio (no funcionales)](#33-calidad-del-servicio-no-funcionales)
     * [3.4 Cumplimiento](#34-cumplimiento)
     * [3.5 Diseño e implementación](#35-diseño-e-implementación)
-    * [3.6 IA/ML (si procede)](#36-iaml-si-procede)
+    * [3.6 IA/ML (si corresponde)](#36-iaml-si-corresponde)
 * [4. Verificación](#4-verificación)
 * [5. Apéndices](#5-apéndices)
 <!-- TOC -->
@@ -37,18 +37,17 @@ Ies. Ribera del Tajo
 | Nombre | Fecha | Motivo del cambio | Versión |
 |--------|-------|-------------------|---------|
 |Adrián Sánchez Elvira|06 / Nov / 2025|Creación del documento|1.0|
-|Adrián Sánchez Elvira|18 / May / 2026|Actualización respecto a IA y backlog de SRS|2.5|
+|Adrián Sánchez Elvira|18 / May / 2026|Backlog de SRS local|2.0|
+|Adrián Sánchez Elvira|20 / May / 2026|Correcciones y puesta a punto|2.1|
 
 ## 1. Introducción
-Este documento se ha formulado con el objetivo de documentar los requisitos, características y desarrollo del proyecto de la asignatura de Proyecto Inter-modular (PIMD).
-Las personas por las cuales se ha realizado este documento es para todo aquel supervisor, integrante de desarrollo y/o posible usuario involucrado en el mismo.
+Este documento se ha formulado con el objetivo de documentar los requisitos, tecnologías, características y desarrollo del proyecto de la asignatura de Proyecto Inter-modular (PIMD). Las personas por las cuales se ha realizado este documento es para todo aquel supervisor, integrante de desarrollo y/o posible usuario involucrado en el mismo.
 
 ### 1.1 Propósito del documento
-Este SRS ayudará tanto al equipo de desarrollo (los alumnos), como a personas externas (profesores o usuarios) a comprender razonamientos y conceptos asociados a la creación del producto especificado por el cliente.
-Este documento seguirá siendo actualizado en caso de cambios de requisitos u otros factores, es recomendado revisar la versión y asegurarse de que es la más nueva antes de continuar.
+Este SRS ayudará tanto al equipo de desarrollo (los alumnos), como a personas externas (profesores o posibles usuarios) a comprender razonamientos y conceptos asociados a la creación del producto especificado por esta tarea. Este documento seguirá siendo actualizado en caso de cambios de requisitos u otros factores, es recomendado revisar la versión y asegurarse de que es la más nueva antes de continuar.
 
 ### 1.2 Alcance del producto
-Como alcance que se nos ha descrito para el PMV (Producto mínimo viable), es una aplicación web utilizada por profesionales médicos para validar casos clínicos y asignarles una puntuación, una interfaz simple y una facilidad de navegación notable son puntos mencionados y que seguiremos. Actualmente el nuevo PMV incluirá la IA (Inteligencia Artifical) conversacional y su respectiva página.
+Como alcance que se nos ha descrito para el PMV (Producto mínimo viable), es una aplicación web utilizada por profesionales médicos para validar casos clínicos y asignarles una puntuación, una interfaz simple y una facilidad de navegación notable son puntos mencionados y que seguiremos. Actualmente el nuevo PMV incluirá la IA (Inteligencia Artifical) conversacional y su respectiva página donde operar con la misma.
 
 ### 1.3 Definiciones, siglas y abreviaturas
 <!--Proporcione un glosario de términos del dominio, siglas y abreviaturas (ordenado alfabéticamente).
@@ -58,7 +57,9 @@ Como alcance que se nos ha descrito para el PMV (Producto mínimo viable), es un
 |         |            |-->
 
 ### 1.4 Referencias
-<!--Liste las fuentes normativas e informativas relevantes (título, autor/entidad, versión/fecha, URL si procede). Indique si es normativa o informativa.-->
+[Reglamento General de Protección de Datos (RPGD)](https://www.boe.es/doue/2016/119/L00001-00088.pdf)
+
+[Ley Orgánica de Protección de Datos Personales y Garantía de Derechos Digitales(LOPDGDD)](https://www.boe.es/buscar/act.php?id=BOE-A-2018-16673)
 
 ### 1.5 Visión general del documento
 El resto del documento explicará razonamientos y características relacionadas con el proyecto, comenzando por el producto y sus puntos, luego los requisitos específicos, generales y técnicos del mismo; y por último algunas pruebas y apéndices a rellenar a futuro.
@@ -72,7 +73,7 @@ La aplicación será una herramienta auxiliar paralela a los sistemas (bases de 
 ### 2.2 Funciones del producto
 * Inicio de sesión con credenciales seguras encriptadas.
 * Interfaz comprensiva, sencilla y ligera.
-* Consultar un caso clínico de forma gráfica.
+* Consultar un caso clínico de forma visual.
 * Poder asignarle una puntuación en distintos aspectos a dicho caso clínico.
 * IA conversacional y fácil de usar para ayudar con diagnósticos de primera necesidad.
 * Historial de dichas conversaciones.
@@ -80,33 +81,32 @@ La aplicación será una herramienta auxiliar paralela a los sistemas (bases de 
 
 ### 2.3 Restricciones del producto
 Debido al diseño y funcionalidades de la aplicación, la forma que hemos decidido para el almacenaje de información podría dividirse en dos principales tipos, una porción encargada de guardar los inicios de sesión de forma segura, y otra para el almacenar las conversaciones en un formato conveniente y rápido, serán relacionadas entre si dado que un usuario necesitará acceso a sus conversaciones.
+
 Otro punto de importancia es la interfaz, debido a que el nivel informático de los usuarios va a ser variado, lo concordado es una interfaz sencilla, fácilmente navegable y reminiscente de chatbots como ChatGPT.
 Se buscará un correcto funcionamiento en distintos navegadores, sistemas operativos y dispositivos con el fin de que el producto sea accesible. 
 
 ### 2.4 Características de los usuarios
-Para la versión que está en desarrollo actualmente, solo existirá una clase usuario, con un mismo nivel de acceso. Cada usuario tendrá sus conversaciones e historial, y será imposible acceder al historial del resto de usuarios.
-El uso se ha formulado como aplicación web de escritorio en el navegador, pero se mantendrá en vista futura la posibilidad de una interfaz adaptada a dispositivos móbiles.
-La carga de acceso de usuarios se supone como pequeña por el momento, pero como se ha mencionado, se mantiene presente la escalabilidad vertical y horizontal del producto.
+Para la versión que está en desarrollo actualmente, solo existirá una tabla que guarde información de usuarios, con un mismo nivel de acceso (autorizado o no). Se asociará a cada usuario sus conversaciones e historial, haciendo que sea imposible acceder al historial del resto de usuarios.
+
+El uso se ha formulado como aplicación web de escritorio en el navegador, pero se mantendrá en vista futura la posibilidad de una interfaz adaptada a dispositivos móviles. La carga de acceso de usuarios se supone como pequeña por el momento, pero como se ha mencionado, se mantiene presente la escalabilidad vertical y horizontal del producto.
 
 ### 2.5 Suposiciones y dependencias
-Como suposiciones, se asume que los centros médicos donde principalmente se utilizará el producto, poseen conexiones a internet seguras o en su defecto servidores y comunicaciones internas; además de dispositivos con los que acceder al producto una vez lanzado.
-Como servicios de terceros estamos actualmente barajando algunas opciones referentes a la seguridad como la verificación de usuarios mediante la nube de google. 
+Como suposiciones, se asume que los centros médicos donde principalmente se utilizará el producto, poseen conexiones a internet seguras o en su defecto servidores y comunicaciones internas; además de dispositivos con los que acceder al producto una vez lanzado. Como servicios de terceros estamos actualmente utilizando la verificación de usuarios mediante la nube de Google, es decir, inicio de sesión con Google. 
 
 ### 2.6 Distribución (apportioning) de requisitos
 Habrá cuatro subsistemas en los que se dividirán los recursos humanos y tecnológicos durante el desarrollo, estos son:
 * Frontend (Interfaz de usuario y conectividad): Se trata de la presentación correcta de la información hacia el usuario además de la recolección de lo que pida hacer el mismo a la aplicación. A resumidas cuentas, muestra las conversaciones, respuestas del usuario, el historial, etc.
-* Backend (Procesado de datos): Gestionará la sesión de los usuarios y los accesos a los datos como las conversaciones del usuario y su historial. Las peticiones y acciones que el usuario realiza en el Frontend se procesan en el backend.
-* Base de Datos: La forma de almacenar datos será en una base de datos no relacional o documental llamada MongoDB, en la cual será muy sencillo el guardar información referente a conversaciones y similar por el formato. El tipo de base de datos se dejó a nuestra discreción y decidimos MongoDB como mejor opción.
+* Backend (Procesado de datos): Gestionará la sesión de los usuarios y los accesos a los datos como las conversaciones del usuario y su historial. Las peticiones y acciones que el usuario realiza en el Frontend se procesan a este nivel.
+* Base de Datos: La forma de almacenar datos será en una base de datos no relacional o documental llamada MongoDB, en la cual será muy sencillo el guardar información referente a conversaciones y similar por el formato. El tipo de base de datos se dejó a nuestra discreción y nos decidimos MongoDB como mejor opción.
 * Inteligencia Artificial (IA): Esta sería entrenada basada en casos médicos generados con IA y posteriormente filtrados y validados. La IA entrenada se encargará de responder a las preguntas y/o consultas que tengan los usuarios y devolver una respuesta que será procesada y mostrada en formato de conversación en el frontend.
 
 ## 3. Requisitos específicos
 A continuación se describirán los requerimientos de la aplicación y como se refleja en los distintos apartados que la componen.
 
 ### 3.1 Interfaces externas
-Como se ha mencionado antes, necesitaremos comunicación entre los distintos componentes de la aplicación, estos siendo el frontend, backend, bases de datos y la Inteligencia Artificial.
-La primera interfaz que se ve es la correspondiente al inicio de sesión, que valida la sesión con el backend y una consulta a los datos de la base de datos mediante una API REST (Petición). De la misma forma en la que se valida la sesión, se recuperará el historial de conversaciones que posea dicho usuario, y al seleccionarse, se cargará mediante otra consulta.
-Como interfaces referentes al hardware (componentes físicos), estrictamente necesarios solo serán un ordenador conectado a la aplicación, un teclado, un ratón y una pantalla.
-Se investigará para futuras versiones un formato de carga de datos que permita evitar que se realicen consultas a las bases de datos de manera muy seguida para que en caso de escalarse el proyecto no haya un tiempo de respuesta alto.
+Como se ha mencionado antes, necesitaremos comunicación entre los distintos componentes de la aplicación, estos siendo el frontend, backend, bases de datos y la Inteligencia Artificial. La primera interfaz que se ve es la correspondiente al inicio de sesión, que valida la sesión con el backend y una consulta a los datos de la base de datos mediante una API REST (Petición). De la misma forma en la que se valida la sesión, se recuperará el historial de conversaciones que posea dicho usuario, y al seleccionarse, se cargará mediante otra consulta.
+
+Como interfaces referentes al hardware (componentes físicos), estrictamente necesarios solo serán un ordenador conectado a la aplicación, un teclado, un ratón y una pantalla. Se investigará para futuras versiones un formato de carga de datos que permita evitar que se realicen consultas a las bases de datos de manera muy seguida para que en caso de escalarse el proyecto no haya un tiempo de respuesta alto.
 
 ### 3.2 Requisitos funcionales
 - ID: RF-1  
