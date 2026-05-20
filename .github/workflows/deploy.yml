@@ -19,5 +19,6 @@ jobs:
           script: |
             cd /var/www/PIMD-CodeCrusaiders
             git pull origin main
-            docker-compose -f docker-compose.prod.yml down
+            docker-compose -f docker-compose.prod.yml down --rmi local
+            docker builder prune -f
             docker-compose -f docker-compose.prod.yml up -d --build

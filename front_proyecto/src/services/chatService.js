@@ -12,7 +12,7 @@ const getAuthHeaders = () => {
 
 export const chatService = {
   getConversations: async () => {
-    const res = await fetch(withBase('/api/v1/chatbot/conversations/'), {
+    const res = await fetch(withBase('/api/v1/conversations/'), {
       headers: getAuthHeaders(),
     });
     if (!res.ok) throw new Error('Error al obtener conversaciones');
@@ -20,7 +20,7 @@ export const chatService = {
   },
 
   createConversation: async (mensajes, titulo) => {
-    const res = await fetch(withBase('/api/v1/chatbot/conversations/'), {
+    const res = await fetch(withBase('/api/v1/conversations/'), {
       method: 'POST',
       headers: getAuthHeaders(),
       body: JSON.stringify({ mensajes, titulo }),
@@ -30,7 +30,7 @@ export const chatService = {
   },
 
   updateConversation: async (convId, mensajes) => {
-    const res = await fetch(withBase(`/api/v1/chatbot/conversations/${convId}`), {
+    const res = await fetch(withBase(`/api/v1/conversations/${convId}`), {
       method: 'PUT',
       headers: getAuthHeaders(),
       body: JSON.stringify({ mensajes }),
@@ -40,7 +40,7 @@ export const chatService = {
   },
 
   getConversation: async (convId) => {
-    const res = await fetch(withBase(`/api/v1/chatbot/conversations/${convId}`), {
+    const res = await fetch(withBase(`/api/v1/conversations/${convId}`), {
       headers: getAuthHeaders(),
     });
     if (!res.ok) throw new Error('Error al obtener conversación');

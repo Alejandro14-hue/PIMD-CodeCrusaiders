@@ -8,8 +8,8 @@ import logging
 logger = logging.getLogger(__name__)
 
 router = APIRouter(
-    prefix="/v1/chatbot",
-    tags=["chatbot"],
+    prefix="/v1/conversations",
+    tags=["conversations"],
     dependencies=[Depends(get_current_user)],
 )
 
@@ -28,14 +28,14 @@ class ConversacionUpdate(BaseModel):
     mensajes: List[Mensaje]
 
 
-@router.get("/conversations/")
+@router.get("/")
 async def get_conversations(current_user: dict = Depends(get_current_user)):
     user_id = current_user.get("sub") or current_user.get("email")
     conversations = await chatbot_service.get_conversaciones_by_user(user_id)
     return {"ok": True, "data": conversations}
 
 
-@router.post("/conversations/")
+@router.post("/")
 async def create_conversation(
     body: ConversacionCreate,
     current_user: dict = Depends(get_current_user),
@@ -50,7 +50,7 @@ async def create_conversation(
     return {"ok": True, "data": {"id": conv_id}}
 
 
-@router.put("/conversations/{conv_id}")
+@router.put("/{conv_id}")
 async def update_conversation(
     conv_id: str,
     body: ConversacionUpdate,
@@ -64,7 +64,7 @@ async def update_conversation(
     return {"ok": True}
 
 
-@router.get("/conversations/{conv_id}")
+@router.get("/{conv_id}")
 async def get_conversation(
     conv_id: str,
     current_user: dict = Depends(get_current_user),
