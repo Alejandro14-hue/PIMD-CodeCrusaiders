@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import './AppLayout.css'
@@ -10,12 +11,12 @@ const FIELD_LABELS = {
   nivel_tecnico_adecuado: 'Nivel técnico adecuado',
 };
 
-async function downloadResultsPDF() {
+async function fetchAndGeneratePDF() {
   const token = localStorage.getItem('token');
   const res = await fetch('/api/v1/valoraciones/', {
     headers: token ? { Authorization: `Bearer ${token}` } : {},
   });
-  if (!res.ok) { alert('Error al obtener las valoraciones'); return; }
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
   const { data } = await res.json();
 
   const doc = new jsPDF({ orientation: 'landscape' });
@@ -48,6 +49,19 @@ async function downloadResultsPDF() {
 }
 
 function AppLayout({ sidebar, children, user, onLogout }) {
+  const [downloading, setDownloading] = useState(false);
+
+  const handleDownload = async () => {
+    setDownloading(true);
+    try {
+      await fetchAndGeneratePDF();
+    } catch (e) {
+      alert(`Error al generar el PDF: ${e.message}`);
+    } finally {
+      setDownloading(false);
+    }
+  };
+
   return (
     <div className="app-layout">
       <aside className="app-layout__sidebar">
@@ -63,9 +77,10 @@ function AppLayout({ sidebar, children, user, onLogout }) {
             <button
               className="app-layout__download"
               type="button"
-              onClick={downloadResultsPDF}
+              onClick={handleDownload}
+              disabled={downloading}
             >
-              Descargar Resultados
+              {downloading ? 'Generando...' : 'Descargar Resultados'}
             </button>
           </div>
           <div className="app-layout__topbar-right">

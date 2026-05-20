@@ -1,9 +1,10 @@
 .app-layout {
   display: flex;
-  min-height: 100vh;
+  height: 100vh;
   width: 100%;
   background-color: #0f172a;
   color: #e2e8f0;
+  overflow: hidden;
 }
 
 .app-layout__sidebar {
@@ -42,6 +43,7 @@
   display: flex;
   flex-direction: column;
   min-width: 0;
+  min-height: 0;
 }
 
 .app-layout__topbar {
