@@ -19,8 +19,9 @@ jobs:
           script: |
             set -e
             cd /var/www/PIMD-CodeCrusaiders
-            echo "=== git pull ==="
-            git pull origin main
+            echo "=== git sync ==="
+            git fetch origin main
+            git reset --hard origin/main
             echo "=== docker down ==="
             docker-compose -f docker-compose.prod.yml down
             echo "=== build backend ==="
