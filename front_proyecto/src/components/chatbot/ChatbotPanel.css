@@ -1,12 +1,15 @@
 .chatbot {
   height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .chatbot__panel {
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.12);
   overflow: hidden;
-  height: min(70vh, 720px);
+  flex: 1;
+  min-height: 0;
   display: flex;
   flex-direction: column;
 }
@@ -25,7 +28,7 @@
   padding: 8px 10px;
   border-radius: 10px;
   line-height: 1.25;
-  font-size: 13px;
+  font-size: 15px;
   border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
