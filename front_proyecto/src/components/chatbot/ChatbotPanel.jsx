@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import ReactMarkdown from 'react-markdown';
 import { useChatContext } from '../../context/ChatContext';
 import './ChatbotPanel.css';
 
@@ -102,7 +103,9 @@ function ChatbotPanel() {
               key={m.id}
               className={`chatbot__message ${m.role === 'user' ? 'is-user' : 'is-assistant'}`}
             >
-              {m.content}
+              {m.role === 'assistant'
+                ? <ReactMarkdown>{m.content}</ReactMarkdown>
+                : m.content}
             </div>
           ))}
           <div ref={messagesEndRef} />
