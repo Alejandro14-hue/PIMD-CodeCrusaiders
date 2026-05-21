@@ -108,6 +108,13 @@ function ChatbotPanel() {
                 : m.content}
             </div>
           ))}
+          {isLoading && (
+            <div className="chatbot__thinking">
+              <span className="chatbot__thinking-dot" />
+              <span className="chatbot__thinking-dot" />
+              <span className="chatbot__thinking-dot" />
+            </div>
+          )}
           <div ref={messagesEndRef} />
         </div>
 
